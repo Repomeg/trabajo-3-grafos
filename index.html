@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabajo Automatas 3</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div>
+        <h2>Automata AFD</h2>
+    </div>
+    <div>
+        <h2>Ingrese el tamaño de su alfabeto</h2>
+        <input type="number" id="alfabeto">
+        <button type="button" class="btn0">Enviar</button>
+    </div>
+
+    <div>
+        <div>
+            <br>
+            <form id='form1'>
+                <h3>Cantidad de conjuntos identificadores</h3>
+                <input type="number" name="num-input" id="num1">
+                <button type="button" class="btn1">Enviar</button> 
+                <div id='indique'></div>
+                <div class='columnas'>
+                    <div class="inputsQ"></div>
+                    <br><br>
+                    <div class="inputsAlf"></div>
+                    <br><br>
+                    <div class="selectRec"></div>  
+                </div>
+                <h3 id="inicial"></h3>
+                <div class="inputsRad"></div>
+                <h3 id="finales"></h3>
+                <div class="inputsCheck"></div>
+                <br>
+                <button type="button" class="btn2">Enviar Formulario</button>
+            </form>
+        </div>
+        <br>
+        <div>
+            <h2>Imagen de su automata AFD</h2>
+            <img class="Au-AFD" alt="">
+        </div>
+
+        <div>
+            <h2>Imagen de su automata Paso 1</h2>
+            <img class="Au-Paso1" alt="">
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
