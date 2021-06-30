@@ -1,13 +1,20 @@
-//Botones .HTML
+//Botones Au 1
 const btn0 = document.querySelector(".btn0");
 const btn1 = document.querySelector(".btn1");
 const btn2 = document.querySelector(".btn2");
 const btn3 = document.querySelector(".btn3");
 
+//Botones Au 2
+const btn4 = document.querySelector(".btn4");
+const btn5 = document.querySelector(".btn5");
+const btn6 = document.querySelector(".btn6");
+const btn7 = document.querySelector(".btn7");
+
 //Imagenes Automata
 const imgAuPila = document.querySelector(".Au-Pila");
+const imgAuPilaAu2 = document.querySelector(".Au-Pila-au2");
 
-//Formulario Automata
+//Formulario Automata 1
 const indicador = document.querySelector(".indicador");
 const selInputsLee = document.querySelector(".selectLee");
 const optInputsLee = document.querySelector(".optLee");
@@ -16,11 +23,26 @@ const optInputsPush = document.querySelector(".optPush");
 const selInputsPop = document.querySelector(".selectPop");
 const optInputsPop = document.querySelector(".optPop");
 
+//Formulario Automata 1
+const indicadorAu2 = document.querySelector(".indicador-au2");
+const selInputsLeeAu2 = document.querySelector(".selectLee-au2");
+const optInputsLeeAu2 = document.querySelector(".optLee-au2");
+const selInputsPushAu2 = document.querySelector(".selectPush-au2");
+const optInputsPushAu2 = document.querySelector(".optPush-au2");
+const selInputsPopAu2 = document.querySelector(".selectPop-au2");
+const optInputsPopAu2 = document.querySelector(".optPop");
+
 //Variables Globales
 let numAlfAu;
 let numAlfPila;
 let numEstados;
 let numTransacciones;
+
+let numAlfAu_Au2;
+let numAlfPila_Au2;
+let numEstados_Au2;
+
+let numTransacciones_Au2;
 let Eabc = ["λ","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 let abcPila = ["λ","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 
@@ -47,7 +69,10 @@ class camino{
 let automataPila1 = new automata;
 let caminoPila1 = new camino;
 
-//Funciones Formulario Automata Pila
+let automataPila2 = new automata;
+let caminoPila2 = new camino;
+
+//Funciones Formulario Automata Pila 1
 const imprimirIndicador = () => {
     for(let t=0;t<numTransacciones;t++){
         const indi = document.createElement('p');
@@ -174,6 +199,133 @@ const guardarSelectPush = () => {
     }
 }
 
+//Funciones Formulario Automata Pila 2
+const imprimirIndicadorAu2 = () => {
+    for(let t=0;t<numTransacciones_Au2;t++){
+        const indiAu2 = document.createElement('p');
+        if(t%2==0){
+            indicadorAu2.append(indiAu2);
+            indiAu2.setAttribute('id',`p-au2-${t}`);
+            document.getElementById(`p-au2-${t}`).innerHTML = `q${t/2} :`;
+        }
+        else{
+            indicadorAu2.append(indiAu2);
+            indiAu2.setAttribute('id',`p-au2-${t}`);
+            document.getElementById(`p-au2-${t}`).innerHTML = `--> :`;
+        }
+    }
+}
+
+const imprimirSelectLeeAu2 = () => {
+    for(let i=0;i<numTransacciones_Au2;i++){
+        const selNewLeeAu2 = document.createElement('select');
+        selInputsLeeAu2.append(selNewLeeAu2);
+        selNewLeeAu2.setAttribute('name',`sel-Lee-au2-${i}`);
+        selNewLeeAu2.setAttribute('id',`sel-Lee-au2-${i}`);
+        selNewLeeAu2.setAttribute('class',`sel-Lee-au2-${i}`);
+        //document.getElementById(`sel-Lee${i}`).style.marginBottom = '5px';
+    }
+    agregarOptLeeAu2();
+}
+
+const agregarOptLeeAu2 = () => {
+    for(let j=0;j<numTransacciones_Au2;j++){
+        let $selLeeAu2 = document.querySelector(`.sel-Lee-au2-${j}`);
+        for(let k=0;k<=numAlfAu_Au2;k++){
+            const optLeeAu2 = document.createElement('option');
+            optLeeAu2.value = `${Eabc[k]}`;
+            optLeeAu2.text = `${Eabc[k]}`;
+            $selLeeAu2.append(optLeeAu2);
+        }
+    }
+}
+
+const guardarSelectLeeAu2 = () => {
+    for(let a=0;a<numTransacciones_Au2;a++){
+        let infoLeeAu2 = document.getElementById(`sel-Lee-au2-${a}`).value;
+        if(a%2==0){
+            automataPila2.l.push(infoLeeAu2);
+            automataPila2.k.push(`q${a/2}`)
+        }
+        else{
+            caminoPila2.l.push(infoLeeAu2);
+            caminoPila2.c.push(`c${Math.trunc(a/2)+1}`)
+        }
+    }
+}
+
+const imprimirSelectPopAu2 = () => {
+    for(let q=0;q<numTransacciones_Au2;q++){
+        const selNewPopAu2 = document.createElement('select');
+        selInputsPopAu2.append(selNewPopAu2);
+        selNewPopAu2.setAttribute('name',`sel-Pop-au2-${q}`);
+        selNewPopAu2.setAttribute('id',`sel-Pop-au2-${q}`);
+        selNewPopAu2.setAttribute('class',`sel-Pop-au2-${q}`);
+        //document.getElementById(`sel-Pop${q}`).style.marginBottom = '5px';
+    }
+    agregarOptPopAu2();
+}
+
+const agregarOptPopAu2 = () => {
+    for(let w=0;w<numTransacciones_Au2;w++){
+        let $selPopAu2 = document.querySelector(`.sel-Pop-au2-${w}`);
+        for(let r=0;r<=numAlfPila_Au2;r++){
+            const optPopAu2 = document.createElement('option');
+            optPopAu2.value = `${abcPila[r]}`;
+            optPopAu2.text = `${abcPila[r]}`;
+            $selPopAu2.append(optPopAu2);
+        }
+    }
+}
+
+const guardarSelectPopAu2 = () => {
+    for(let b=0;b<numTransacciones_Au2;b++){
+        let infoPopAu2 = document.getElementById(`sel-Pop-au2-${b}`).value;
+        if(b%2==0){
+            automataPila2.s.push(infoPopAu2);
+        }
+        else{
+            caminoPila2.s.push(infoPopAu2);
+        }
+    }
+}
+
+const imprimirSelectPushAu2 = () => {
+    for(let l=0;l<numTransacciones_Au2;l++){
+        const selNewPushAu2 = document.createElement('select');
+        selInputsPushAu2.append(selNewPushAu2);
+        selNewPushAu2.setAttribute('name',`sel-Push-au2-${l}`);
+        selNewPushAu2.setAttribute('id',`sel-Push-au2-${l}`);
+        selNewPushAu2.setAttribute('class',`sel-Push-au2-${l}`);
+        //document.getElementById(`sel-Push${l}`).style.marginBottom = '5px';
+    }
+    agregarOptPushAu2();
+}
+
+const agregarOptPushAu2 = () => {
+    for(let m=0;m<numTransacciones_Au2;m++){
+        let $selPushAu2 = document.querySelector(`.sel-Push-au2-${m}`);
+        for(let n=0;n<=numAlfPila_Au2;n++){
+            const optPushAu2 = document.createElement('option');
+            optPushAu2.value = `${abcPila[n]}`;
+            optPushAu2.text = `${abcPila[n]}`;
+            $selPushAu2.append(optPushAu2);
+        }
+    }
+}
+
+const guardarSelectPushAu2 = () => {
+    for(let c=0;c<numTransacciones_Au2;c++){
+        let infoPushAu2 = document.getElementById(`sel-Push-au2-${c}`).value;
+        if(c%2==0){
+            automataPila2.m.push(infoPushAu2);
+        }
+        else{
+            caminoPila2.m.push(infoPushAu2);
+        }
+    }
+}
+
 //Funcion Imagen de su automata
 const crearAu = (auxAu,auxCa) => {
     Au =  JSON.parse(JSON.stringify(auxAu));
@@ -193,11 +345,10 @@ const crearAu = (auxAu,auxCa) => {
     }
 
     fin = 'https://quickchart.io/graphviz?graph=digraph{poi[shape=point];poi->q0[label=Inicio];'+Au.k[final]+'[shape=doublecircle];'+transQs+caminos+'}';
-    console.log(fin);
     return fin;
 }
 
-//Eventos
+//Eventos Formulario 1
 btn0.addEventListener('click', (evt) => {
     numAlfAu = document.getElementById("alfabeto-au").value;
     console.log('Cant. Alfabeto Au: '+numAlfAu);
@@ -240,5 +391,50 @@ btn3.addEventListener('click', (evt) => {
     console.log(caminoPila1.m);
 
     imgAuPila.setAttribute('src',`${crearAu(automataPila1,caminoPila1)}`);
+})
+
+//Eventos Formulario 2
+btn4.addEventListener('click', (evt) => {
+    numAlfAu_Au2 = document.getElementById("alfabeto-au2").value;
+    console.log('Cant. Alfabeto Au2: '+numAlfAu_Au2);
+})
+
+btn5.addEventListener('click', (evt) => {
+    numAlfPila_Au2 = document.getElementById("alfabeto-pila-au2").value;
+    console.log('Cant. Alfabeto Pila Au2: '+numAlfPila_Au2);
+})
+
+btn6.addEventListener('click', (evt) => {
+    numEstados_Au2 = document.getElementById("num-estados-au2").value;
+    console.log('Cant. Estados Au2: '+numEstados_Au2);
+    numTransacciones_Au2 = (numEstados_Au2*2)-1;
+    console.log('Cant. Transacciones Totales Au2: '+numTransacciones_Au2);
+    document.getElementById("indique-au2").innerHTML = '<h2> Indique los elementos de sus transacciones </h2>';
+    imprimirIndicadorAu2();
+    imprimirSelectLeeAu2();
+    imprimirSelectPopAu2();
+    imprimirSelectPushAu2();
+})
+
+btn7.addEventListener('click', (evt) => {
+    guardarSelectLeeAu2();
+    guardarSelectPopAu2();
+    guardarSelectPushAu2();
+
+    //Automata
+    console.log('INFO AUTOMATA 2: ');
+    console.log(automataPila2.k);
+    console.log(automataPila2.l);
+    console.log(automataPila2.s);
+    console.log(automataPila2.m);
+
+    //Camino}
+    console.log('INFO CAMINO Au 2: ');
+    console.log(caminoPila2.c);
+    console.log(caminoPila2.l);
+    console.log(caminoPila2.s);
+    console.log(caminoPila2.m);
+
+    imgAuPilaAu2.setAttribute('src',`${crearAu(automataPila2,caminoPila2)}`);
 })
 
