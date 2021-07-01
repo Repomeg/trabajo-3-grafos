@@ -1,327 +1,628 @@
-//Botones.HTML
+//Botones Au 1
 const btn0 = document.querySelector(".btn0");
 const btn1 = document.querySelector(".btn1");
 const btn2 = document.querySelector(".btn2");
+const btn3 = document.querySelector(".btn3");
 
-//Document .html
-const txtNumInput = document.getElementsByName("num-input");
+//Botones Au 2
+const btn4 = document.querySelector(".btn4");
+const btn5 = document.querySelector(".btn5");
+const btn6 = document.querySelector(".btn6");
+const btn7 = document.querySelector(".btn7");
 
-//Imagenes AFD
-const imgAuAfd = document.querySelector(".Au-AFD");
-const imgPaso1 = document.querySelector(".Au-Paso1");
+//Imagenes Automata
+const imgAuPila = document.querySelector(".Au-Pila");
+const imgAuPilaAu2 = document.querySelector(".Au-Pila-au2");
+const imgUnion = document.querySelector(".Au-Union");
 
-//Divs Automata
-const divInputsQ = document.querySelector(".inputsQ");
-const divInputsAlf = document.querySelector(".inputsAlf");
-const divInputsSel = document.querySelector(".selectRec");
-const divInputsOpt = document.querySelector(".optionRec");
-const divInputCheck = document.querySelector(".inputsCheck");
-const divInputRad = document.querySelector(".inputsRad");
+//Formulario Automata 1
+const indicador = document.querySelector(".indicador");
+const selInputsLee = document.querySelector(".selectLee");
+const optInputsLee = document.querySelector(".optLee");
+const selInputsPush = document.querySelector(".selectPush");
+const optInputsPush = document.querySelector(".optPush");
+const selInputsPop = document.querySelector(".selectPop");
+const optInputsPop = document.querySelector(".optPop");
 
-//Variables globales
-let numAlf;
-let abc = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+//Formulario Automata 1
+const indicadorAu2 = document.querySelector(".indicador-au2");
+const selInputsLeeAu2 = document.querySelector(".selectLee-au2");
+const optInputsLeeAu2 = document.querySelector(".optLee-au2");
+const selInputsPushAu2 = document.querySelector(".selectPush-au2");
+const optInputsPushAu2 = document.querySelector(".optPush-au2");
+const selInputsPopAu2 = document.querySelector(".selectPop-au2");
+const optInputsPopAu2 = document.querySelector(".optPop");
+
+//Variables Globales
+let numAlfAu;
+let numAlfPila;
+let numEstados;
+let numTransacciones;
+
+let numAlfAu_Au2;
+let numAlfPila_Au2;
+let numEstados_Au2;
+
+let matrizUnion = [];
+
+let numTransacciones_Au2;
+let Eabc = ["λ","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+let abcPila = ["λ","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 
 //Clase Automata
 class automata{
-    constructor(k,s,g,f,qf,i,l){
+    constructor(k,l,s,m){
         this.k = [];
+        this.l = [];
         this.s = [];
-        this.g = [];
-        this.f = [];
-        this.qf = [];
+        this.m = [];
     }
 }
 
-//Variable automata
-let automataAFD = new automata;
-
-//Nuevo Automata Inicial y Final
-let automataP1 = new automata;
-
-//Funciones Formulario Automata AFD
-const imprimirInputsQ = () => {
-    const valorInput = txtNumInput[0].value;
-
-    for (let i = 0; i < valorInput*numAlf; i++) {
-        const inputNewQ = document.createElement('input');
-        divInputsQ.append(inputNewQ);
-        inputNewQ.setAttribute('name', `q${i/numAlf}${abc[i%numAlf]}`); 
-        inputNewQ.setAttribute('value',`q${Math.trunc(i/numAlf)}`);
-        inputNewQ.setAttribute('disabled','');
-        console.log(`q${Math.trunc(i/numAlf)}${abc[i%numAlf]}`);
+class camino{
+    constructor(c,l,s,m){
+        this.c = [];
+        this.l = [];
+        this.s = [];
+        this.m = [];
     }
 }
 
-const guardarQs = () => {
-    const vInput = txtNumInput[0].value;
-    
-    for(let w=0;w<vInput*numAlf;w++){
-        let vQ = `q${Math.trunc(w/numAlf)}`;
-        automataAFD.k.push(vQ);
-    }
-    console.log(automataAFD.k);
-}
+//Variables Automatas
+let automataPila1 = new automata;
+let caminoPila1 = new camino;
 
-const imprimirInputsAlf = () => {
-    const valorALf = txtNumInput[0].value;
+let automataPila2 = new automata;
+let caminoPila2 = new camino;
 
-    for(let j=0;j<valorALf*numAlf;j++){
-        const inputNewAlf = document.createElement('input');
-        divInputsAlf.append(inputNewAlf);
-        inputNewAlf.setAttribute('name', `alf${j}`);
-        inputNewAlf.setAttribute('value',`${abc[j%numAlf]}`);
-        inputNewAlf.setAttribute('disabled','');
-    }
-}
+let automataUnion = new automata;
+let caminoUnion = new camino;
 
-const guardarAlf = () => {
-    const vAlf = txtNumInput[0].value;
+let automataConca = new automata;
+let caminoConca = new camino;
 
-    for(let r=0;r<vAlf*numAlf;r++){
-        let alfi = `${abc[r%numAlf]}`;
-        automataAFD.s.push(alfi);
-    }
-    console.log(automataAFD.s);
-}
-
-const imprimirSelectRec = () => {
-    const valorSel = txtNumInput[0].value;
-
-    for(let k=0;k<valorSel*numAlf;k++){
-        const selNewRec = document.createElement('select');
-        divInputsSel.append(selNewRec);
-        selNewRec.setAttribute('name',`sel${k}`);
-        selNewRec.setAttribute('id',`sel${k}`);
-        selNewRec.setAttribute('class',`sel${k}`);
-        document.getElementById(`sel${k}`).style.marginBottom = '5px';
-    }
-    agregarOptions();
-}
-
-const agregarOptions = () => {
-    const valorOp = txtNumInput[0].value;
-    
-    for(let l=0;l<valorOp*numAlf;l++){
-        let $select = document.querySelector(`.sel${l}`);
-        for(let p=0;p<valorOp;p++){
-            const opti = document.createElement('option');
-            opti.value =`q${p%valorOp}`;
-            opti.text = `q${p%valorOp}`;
-            $select.append(opti);
+//Funciones Formulario Automata Pila 1
+const imprimirIndicador = () => {
+    for(let t=0;t<numTransacciones;t++){
+        const indi = document.createElement('p');
+        if(t%2==0){
+            indicador.append(indi);
+            indi.setAttribute('id',`p-${t}`);
+            document.getElementById(`p-${t}`).innerHTML = `q${t/2} :`;
+        }
+        else{
+            indicador.append(indi);
+            indi.setAttribute('id',`p-${t}`);
+            document.getElementById(`p-${t}`).innerHTML = `--> :`;
         }
     }
 }
 
-const guardarSelec = () => {
-    const vSel = txtNumInput[0].value;
-
-    for(let s=0;s<vSel*numAlf;s++){
-        let infoSel = document.getElementById(`sel${s}`).value;
-        automataAFD.g.push(infoSel);
+const imprimirSelectLee = () => {
+    for(let i=0;i<numTransacciones;i++){
+        const selNewLee = document.createElement('select');
+        selInputsLee.append(selNewLee);
+        selNewLee.setAttribute('name',`sel-Lee${i}`);
+        selNewLee.setAttribute('id',`sel-Lee${i}`);
+        selNewLee.setAttribute('class',`sel-Lee${i}`);
+        //document.getElementById(`sel-Lee${i}`).style.marginBottom = '5px';
     }
-    console.log(automataAFD.g);
+    agregarOptLee();
 }
 
-const agregarCheck = () => {
-    const valorCheck = txtNumInput[0].value;
-
-    for(let n=0;n<valorCheck;n++){
-        const inputNewCheck = document.createElement('input');
-        divInputCheck.append(inputNewCheck);
-        inputNewCheck.setAttribute('type','checkbox');
-        inputNewCheck.setAttribute('id',`f${n}`);
-        inputNewCheck.setAttribute('name',`f${n}`);
-        divInputCheck.append(`q${n}  `);
-    }
-}
-
-const guardarCheck = () => {
-    const vCheck = txtNumInput[0].value;
-
-    for(let c=0;c<vCheck;c++){
-        let checki = document.getElementById(`f${c}`).checked;
-        automataAFD.f.push(checki);
-        automataAFD.qf.push(`q${c}`);
-    }
-    console.log(automataAFD.f);
-}
-
-const agregarRad = () => {
-    const valorRad = txtNumInput[0].value;
-
-    for(let aa=0;aa<valorRad;aa++){
-        const inputNewRad = document.createElement('input');
-        divInputRad.append(inputNewRad);
-        inputNewRad.setAttribute('type','radio');
-        inputNewRad.setAttribute('class','ini');
-        inputNewRad.setAttribute('value',`${aa}`);
-        inputNewRad.setAttribute('name','ini');
-        inputNewRad.setAttribute('checked','true');
-        divInputRad.append(`q${aa}  `);
+const agregarOptLee = () => {
+    for(let j=0;j<numTransacciones;j++){
+        let $selLee = document.querySelector(`.sel-Lee${j}`);
+        for(let k=0;k<=numAlfAu;k++){
+            const optLee = document.createElement('option');
+            optLee.value = `${Eabc[k]}`;
+            optLee.text = `${Eabc[k]}`;
+            $selLee.append(optLee);
+        }
     }
 }
 
-const guardarRad = () => {
-    let inici =  document.querySelector('input[name=ini]:checked').value;
-    automataAFD.i = inici;
-    console.log('Estado Inicial: q'+automataAFD.i);
+const guardarSelectLee = () => {
+    for(let a=0;a<numTransacciones;a++){
+        let infoLee = document.getElementById(`sel-Lee${a}`).value;
+        if(a%2==0){
+            automataPila1.l.push(infoLee);
+            automataPila1.k.push(`q${a/2}`)
+        }
+        else{
+            caminoPila1.l.push(infoLee);
+            caminoPila1.c.push(`c${Math.trunc(a/2)+1}`)
+        }
+    }
 }
 
-//Funcion Imagen del Automata
-const crearAu = (Qs_aux,Trans_aux,Alf_aux,Qfinale_aux,Finale_aux,Inicio_aux) => {
-    let direccionQ = Qs_aux[0]+'->'+Trans_aux[0]+`[label="${Alf_aux[0]}"]`+';';
-    let double='';
-    let point=`poi->q${Inicio_aux}`+' [color=dodgerblue,style=dotted] ;';
-    let poi=`poi[shape=point]`;
+const imprimirSelectPop = () => {
+    for(let q=0;q<numTransacciones;q++){
+        const selNewPop = document.createElement('select');
+        selInputsPop.append(selNewPop);
+        selNewPop.setAttribute('name',`sel-Pop${q}`);
+        selNewPop.setAttribute('id',`sel-Pop${q}`);
+        selNewPop.setAttribute('class',`sel-Pop${q}`);
+        //document.getElementById(`sel-Pop${q}`).style.marginBottom = '5px';
+    }
+    agregarOptPop();
+}
+
+const agregarOptPop = () => {
+    for(let w=0;w<numTransacciones;w++){
+        let $selPop = document.querySelector(`.sel-Pop${w}`);
+        for(let r=0;r<=numAlfPila;r++){
+            const optPop = document.createElement('option');
+            optPop.value = `${abcPila[r]}`;
+            optPop.text = `${abcPila[r]}`;
+            $selPop.append(optPop);
+        }
+    }
+}
+
+const guardarSelectPop = () => {
+    for(let b=0;b<numTransacciones;b++){
+        let infoPop = document.getElementById(`sel-Pop${b}`).value;
+        if(b%2==0){
+            automataPila1.s.push(infoPop);
+        }
+        else{
+            caminoPila1.s.push(infoPop);
+        }
+    }
+}
+
+const imprimirSelectPush = () => {
+    for(let l=0;l<numTransacciones;l++){
+        const selNewPush = document.createElement('select');
+        selInputsPush.append(selNewPush);
+        selNewPush.setAttribute('name',`sel-Push${l}`);
+        selNewPush.setAttribute('id',`sel-Push${l}`);
+        selNewPush.setAttribute('class',`sel-Push${l}`);
+        //document.getElementById(`sel-Push${l}`).style.marginBottom = '5px';
+    }
+    agregarOptPush();
+}
+
+const agregarOptPush = () => {
+    for(let m=0;m<numTransacciones;m++){
+        let $selPush = document.querySelector(`.sel-Push${m}`);
+        for(let n=0;n<=numAlfPila;n++){
+            const optPush = document.createElement('option');
+            optPush.value = `${abcPila[n]}`;
+            optPush.text = `${abcPila[n]}`;
+            $selPush.append(optPush);
+        }
+    }
+}
+
+const guardarSelectPush = () => {
+    for(let c=0;c<numTransacciones;c++){
+        let infoPush = document.getElementById(`sel-Push${c}`).value;
+        if(c%2==0){
+            automataPila1.m.push(infoPush);
+        }
+        else{
+            caminoPila1.m.push(infoPush);
+        }
+    }
+}
+
+//Funciones Formulario Automata Pila 2
+const imprimirIndicadorAu2 = () => {
+    for(let t=0;t<numTransacciones_Au2;t++){
+        const indiAu2 = document.createElement('p');
+        if(t%2==0){
+            indicadorAu2.append(indiAu2);
+            indiAu2.setAttribute('id',`p-au2-${t}`);
+            document.getElementById(`p-au2-${t}`).innerHTML = `q${t/2} :`;
+        }
+        else{
+            indicadorAu2.append(indiAu2);
+            indiAu2.setAttribute('id',`p-au2-${t}`);
+            document.getElementById(`p-au2-${t}`).innerHTML = `--> :`;
+        }
+    }
+}
+
+const imprimirSelectLeeAu2 = () => {
+    for(let i=0;i<numTransacciones_Au2;i++){
+        const selNewLeeAu2 = document.createElement('select');
+        selInputsLeeAu2.append(selNewLeeAu2);
+        selNewLeeAu2.setAttribute('name',`sel-Lee-au2-${i}`);
+        selNewLeeAu2.setAttribute('id',`sel-Lee-au2-${i}`);
+        selNewLeeAu2.setAttribute('class',`sel-Lee-au2-${i}`);
+        //document.getElementById(`sel-Lee${i}`).style.marginBottom = '5px';
+    }
+    agregarOptLeeAu2();
+}
+
+const agregarOptLeeAu2 = () => {
+    for(let j=0;j<numTransacciones_Au2;j++){
+        let $selLeeAu2 = document.querySelector(`.sel-Lee-au2-${j}`);
+        for(let k=0;k<=numAlfAu_Au2;k++){
+            const optLeeAu2 = document.createElement('option');
+            optLeeAu2.value = `${Eabc[k]}`;
+            optLeeAu2.text = `${Eabc[k]}`;
+            $selLeeAu2.append(optLeeAu2);
+        }
+    }
+}
+
+const guardarSelectLeeAu2 = () => {
+    for(let a=0;a<numTransacciones_Au2;a++){
+        let infoLeeAu2 = document.getElementById(`sel-Lee-au2-${a}`).value;
+        if(a%2==0){
+            automataPila2.l.push(infoLeeAu2);
+            automataPila2.k.push(`q${a/2}`)
+        }
+        else{
+            caminoPila2.l.push(infoLeeAu2);
+            caminoPila2.c.push(`c${Math.trunc(a/2)+1}`)
+        }
+    }
+}
+
+const imprimirSelectPopAu2 = () => {
+    for(let q=0;q<numTransacciones_Au2;q++){
+        const selNewPopAu2 = document.createElement('select');
+        selInputsPopAu2.append(selNewPopAu2);
+        selNewPopAu2.setAttribute('name',`sel-Pop-au2-${q}`);
+        selNewPopAu2.setAttribute('id',`sel-Pop-au2-${q}`);
+        selNewPopAu2.setAttribute('class',`sel-Pop-au2-${q}`);
+        //document.getElementById(`sel-Pop${q}`).style.marginBottom = '5px';
+    }
+    agregarOptPopAu2();
+}
+
+const agregarOptPopAu2 = () => {
+    for(let w=0;w<numTransacciones_Au2;w++){
+        let $selPopAu2 = document.querySelector(`.sel-Pop-au2-${w}`);
+        for(let r=0;r<=numAlfPila_Au2;r++){
+            const optPopAu2 = document.createElement('option');
+            optPopAu2.value = `${abcPila[r]}`;
+            optPopAu2.text = `${abcPila[r]}`;
+            $selPopAu2.append(optPopAu2);
+        }
+    }
+}
+
+const guardarSelectPopAu2 = () => {
+    for(let b=0;b<numTransacciones_Au2;b++){
+        let infoPopAu2 = document.getElementById(`sel-Pop-au2-${b}`).value;
+        if(b%2==0){
+            automataPila2.s.push(infoPopAu2);
+        }
+        else{
+            caminoPila2.s.push(infoPopAu2);
+        }
+    }
+}
+
+const imprimirSelectPushAu2 = () => {
+    for(let l=0;l<numTransacciones_Au2;l++){
+        const selNewPushAu2 = document.createElement('select');
+        selInputsPushAu2.append(selNewPushAu2);
+        selNewPushAu2.setAttribute('name',`sel-Push-au2-${l}`);
+        selNewPushAu2.setAttribute('id',`sel-Push-au2-${l}`);
+        selNewPushAu2.setAttribute('class',`sel-Push-au2-${l}`);
+        //document.getElementById(`sel-Push${l}`).style.marginBottom = '5px';
+    }
+    agregarOptPushAu2();
+}
+
+const agregarOptPushAu2 = () => {
+    for(let m=0;m<numTransacciones_Au2;m++){
+        let $selPushAu2 = document.querySelector(`.sel-Push-au2-${m}`);
+        for(let n=0;n<=numAlfPila_Au2;n++){
+            const optPushAu2 = document.createElement('option');
+            optPushAu2.value = `${abcPila[n]}`;
+            optPushAu2.text = `${abcPila[n]}`;
+            $selPushAu2.append(optPushAu2);
+        }
+    }
+}
+
+const guardarSelectPushAu2 = () => {
+    for(let c=0;c<numTransacciones_Au2;c++){
+        let infoPushAu2 = document.getElementById(`sel-Push-au2-${c}`).value;
+        if(c%2==0){
+            automataPila2.m.push(infoPushAu2);
+        }
+        else{
+            caminoPila2.m.push(infoPushAu2);
+        }
+    }
+}
+
+//Funcion Imagen de su automata Pila
+const crearAuPila = (auxAu,auxCa) => {
+    let Au =  JSON.parse(JSON.stringify(auxAu));
+    let Ca =  JSON.parse(JSON.stringify(auxCa));
+
+    let transQs = Au.k[0]+'->'+Au.k[0]+`[label="${Au.l[0]}/${Au.s[0]}/${Au.m[0]}"]`+';';
+    let caminos = Au.k[0]+'->'+Au.k[1]+`[label="${Ca.l[0]}/${Ca.s[0]}/${Ca.m[0]}"]`+';';
+    let final = Number.parseInt(Au.k.length)-1;
     let fin;
 
-    for(let z=0;z<Finale_aux.length;z++){
-        if(Finale_aux[z]==true){
-            double+=`${Qfinale_aux[z]} [shape=doublecircle];`;
-        }
+    for(let z=1;z<Au.k.length;z++){
+        transQs += Au.k[z]+'->'+Au.k[z]+`[label="${Au.l[z]}/${Au.s[z]}/${Au.m[z]}"]`+';';
     }
-    console.log(double);
 
-    for(let b =1; b < Qs_aux.length; b++){
-        direccionQ+=Qs_aux[b]+'->'+Trans_aux[b]+`[label="${Alf_aux[b]}"]`+';';
+    for(let zz=1;zz<Ca.c.length;zz++){
+        caminos += Au.k[zz]+'->'+Au.k[zz+1]+`[label="${Ca.l[zz]}/${Ca.s[zz]}/${Ca.m[zz]}"]`+';';
     }
-    fin = 'https://quickchart.io/graphviz?graph=digraph{'+poi+point+double+direccionQ+'}';
+
+    fin = 'https://quickchart.io/graphviz?graph=digraph{poi[shape=point];poi->q0[label="Inicio"];'+Au.k[final]+'[shape=doublecircle];'+transQs+caminos+'}';
+    console.log(fin);
     return fin;
 }
 
-const newAutomata = (aux1) => {
-    automataP1 = JSON.parse(JSON.stringify(automataAFD));
-    
-    automataP1.k.push('qi');
-    automataP1.s.push('E');
-    automataP1.g.push(`q${aux1.i}`);
-    automataP1.f.push(false);
-    automataP1.qf.push('qi');
-    automataP1.i='i';
-    
-    for(let i=0;i<aux1.f.length;i++){
-        if(aux1.f[i]==true){
-            automataP1.f[i]=false;
-            automataP1.k.push(aux1.qf[i]);
-            automataP1.s.push('E');
-            automataP1.g.push('qf');
-        }
+//Funcion Union
+const union = (auxAu,auxCa,auxAu2,auxCa2) => {
+    const auUnion = new automata;
+    const caUnion = new camino;
+
+    au2 = JSON.parse(JSON.stringify(auxAu2));
+    ca2 = JSON.parse(JSON.stringify(auxCa2));
+
+    let largoAu = Number.parseInt(auxAu.k.length);
+    let largoCa = Number.parseInt(auxCa.c.length);
+
+    for(let h=0;h<au2.k.length;h++){
+        auUnion.l.push(au2.l[h]);
+        auUnion.s.push(au2.s[h]);
+        auUnion.m.push(au2.m[h]);
+
+        let aux = au2.k[h].split('');
+        aux.shift();
+        let val = Number.parseInt(aux.join(''));
+        val=val+largoAu;
+
+        auUnion.k.push(`q${val}`);
     }
-    automataP1.f.push(true);
-    automataP1.qf.push('qf');
-    console.log(automataP1);
+
+    for(let s=0;s<ca2.c.length;s++){
+        caUnion.l.push(ca2.l[s]);
+        caUnion.s.push(ca2.s[s]);
+        caUnion.m.push(ca2.m[s]);
+
+        let auxi = ca2.c[s].split('');
+        auxi.shift();
+        let vali = Number.parseInt(auxi.join(''));
+        vali=vali+largoCa;
+
+        caUnion.c.push(`c${vali}`);
+    }
+    console.log(auUnion);
+    console.log(caUnion);
+    
+    automataUnion = JSON.parse(JSON.stringify(auUnion));
+    caminoUnion = JSON.parse(JSON.stringify(caUnion));
 }
 
-//Eventos
-btn0.addEventListener('click', (evt) => {
-    numAlf = document.getElementById("alfabeto").value;
-    console.log(numAlf);
-});
+//Funcion Imagen de su Union
+const CrearAuUnion = (auxAu,auxCa,auxAu2,auxCa2) => {
+    let Au_U1 = JSON.parse(JSON.stringify(auxAu));
+    let Ca_U1 =  JSON.parse(JSON.stringify(auxCa));
 
-//Botones Automata AFD
+    let Au_U2 = JSON.parse(JSON.stringify(auxAu2));
+    let Ca_U2 =  JSON.parse(JSON.stringify(auxCa2));
+
+    let transQs_U1 = Au_U1.k[0]+'->'+Au_U1.k[0]+`[label="${Au_U1.l[0]}/${Au_U1.s[0]}/${Au_U1.m[0]}"]`+';';
+    let caminos_U1 = Au_U1.k[0]+'->'+Au_U1.k[1]+`[label="${Ca_U1.l[0]}/${Ca_U1.s[0]}/${Ca_U1.m[0]}"]`+';';
+
+    let transQs_U2 = Au_U2.k[0]+'->'+Au_U2.k[0]+`[label="${Au_U2.l[0]}/${Au_U2.s[0]}/${Au_U2.m[0]}"]`+';';
+    let caminos_U2 = Au_U2.k[0]+'->'+Au_U2.k[1]+`[label="${Ca_U2.l[0]}/${Ca_U2.s[0]}/${Ca_U2.m[0]}"]`+';';
+
+    let final1 = Number.parseInt(Au_U1.k.length)-1;
+    let final2 = Number.parseInt(Au_U2.k.length)-1;
+
+    let finU;
+
+    for(let x=1;x<Au_U1.k.length;x++){
+        transQs_U1 += Au_U1.k[x]+'->'+Au_U1.k[x]+`[label="${Au_U1.l[x]}/${Au_U1.s[x]}/${Au_U1.m[x]}"]`+';';
+    }
+    for(let xx=1;xx<Ca_U1.c.length;xx++){
+        caminos_U1 += Au_U1.k[xx]+'->'+Au_U1.k[xx+1]+`[label="${Ca_U1.l[xx]}/${Ca_U1.s[xx]}/${Ca_U1.m[xx]}"]`+';';
+    }
+
+    for(let y=1;y<Au_U2.k.length;y++){
+        transQs_U2 += Au_U2.k[y]+'->'+Au_U2.k[y]+`[label="${Au_U2.l[y]}/${Au_U2.s[y]}/${Au_U2.m[y]}"]`+';';
+    }
+    for(let yy=1;yy<Ca_U2.c.length;yy++){
+        caminos_U2 += Au_U2.k[yy]+'->'+Au_U2.k[yy+1]+`[label="${Ca_U2.l[yy]}/${Ca_U2.s[yy]}/${Ca_U2.m[yy]}"]`+';';
+    }
+
+    finU = 'https://quickchart.io/graphviz?graph=digraph{poi[shape=point];poi->qi[label="Inicio"];'+'qi->q0[label="λ/λ/λ"];qi->'+Au_U2.k[0]+'[label="λ/λ/λ"];'+Au_U1.k[final1]+'[shape=doublecircle];'+Au_U2.k[final2]+'[shape=doublecircle];'+transQs_U1+caminos_U1+transQs_U2+caminos_U2+'}';
+    console.log(finU);
+    return finU;
+}
+
+//Eventos Formulario 1
+btn0.addEventListener('click', (evt) => {
+    numAlfAu = document.getElementById("alfabeto-au").value;
+    if(numAlfAu==""){
+        alert("Debe agregar un valor entre 1 y 27 primero");
+        return 0;
+    }
+    if(numAlfAu<0){
+        alert("Debe agregar un valor entre 1 y 27");
+        document.getElementById("alfabeto-au").value="";
+        return 0;
+    }
+    if(numAlfAu>27){
+        alert("Debe agregar un valor entre 1 y 27"); 
+        document.getElementById("alfabeto-au").value="";
+        return 0;
+    }
+    
+    
+    console.log('Cant. Alfabeto Au: '+numAlfAu);
+})
+
 btn1.addEventListener('click', (evt) => {
-    document.getElementById("indique").innerHTML = '<h3> Indique las transacciones </h3>'
-    imprimirInputsQ();
-    imprimirInputsAlf();
-    imprimirSelectRec();
-    document.getElementById("inicial").innerHTML = 'Seleccione su estado inicial';
-    agregarRad();
-    document.getElementById("finales").innerHTML = 'Seleccione sus estados finales';
-    agregarCheck();
-});
+    numAlfAu = document.getElementById("alfabeto-au").value;
+    numAlfPila = document.getElementById("alfabeto-pila").value;
+    if(numAlfAu==""){
+        alert("Primero debe agregar el tamaño del Alfabeto para el Automata.");
+        return 0;
+    }
+    if(numAlfPila==""){
+        alert("Debe agregar un valor entre 1 y 27 primero");
+        return 0;
+    }
+    if(numAlfPila<0){
+        alert("Debe agregar un valor entre 1 y 27");
+        document.getElementById("alfabeto-pila").value="";
+        return 0;
+    }
+    if(numAlfPila>27){
+        alert("Debe agregar un valor entre 1 y 27"); 
+        document.getElementById("alfabeto-pila").value="";
+        return 0;
+    }
+    console.log('Cant. Alfabeto Pila: '+numAlfPila);
+})
 
 btn2.addEventListener('click', (evt) => {
-    guardarQs();
-    guardarAlf();
-    guardarSelec();
-    guardarCheck();
-    guardarRad();
-    imgAuAfd.setAttribute('src',`${crearAu(automataAFD.k,automataAFD.g,automataAFD.s,automataAFD.qf,automataAFD.f,automataAFD.i)}`);
-    newAutomata(automataAFD);
-    imgPaso1.setAttribute('src',`${crearAu(automataP1.k,automataP1.g,automataP1.s,automataP1.qf,automataP1.f,automataP1.i)}`);
-    console.log(automataAFD);
-});
-
-
-
-function llenarLEN() {
-    var leEntrada = document.getElementById("alfabeto").value;
-    var arraylenguaje = [];
-
-       
-    
-      
-
-        
-        return ArrayDefinitivo;
+    numAlfAu = document.getElementById("alfabeto-au").value;
+    numEstados = document.getElementById("num-estados").value;
+    if(numAlfAu==""){
+        alert("Primero debe agregar el alfabeto.");
+        return 0;
     }
-function ER() {
-    var ArrayDefinitivo = [];
-    var lenguaje = automataAFD.s;
-    var conjunto = automataAFD.k;
-    var transicion = automataAFD.g;
-    var conjunto1 = automataAFD.qf;
-    var Er = "No hay ER que lo defina";
-    console.log("valores a trabajar =", conjunto, lenguaje, transicion);
-    for (let i = 0; i < conjunto.length; i++) {
-        if (conjunto[i] === transicion[i]) {
-            transicion[i] = "*";
-            console.log(i, " = ", transicion[i]);
-        }
+    if(numEstados<0){
+        alert("Debe agregar un valor entre 1 y 10");
+        return 0;
     }
-
-    for(let contador=0;contador<numAlf;contador++){
-        ArrayDefinitivo.push(abc[contador]);
+    if(numEstados>10){
+        alert("Debe agregar un valor entre 1 y 10");
+        return 0;
     }
+    console.log('Cant. Estados: '+numEstados);
+    numTransacciones = (numEstados*2)-1;
+    console.log('Cant. Transacciones Totales: '+numTransacciones);
+    document.getElementById("indique").innerHTML = '<h2> Indique los elementos de sus transacciones </h2>';
+    imprimirIndicador();
+    imprimirSelectLee();
+    imprimirSelectPop();
+    imprimirSelectPush();
+})
 
-    for (let i = 0; i < conjunto1.length; i++) {
-        for (let j = 0; j < transicion.length; j++) {
-            if (conjunto1[i] === transicion[j]) {
-                var NuevosLenguaje = [];
-                var NuevasSalidas = [];
-                let p =  ArrayDefinitivo.length;
-                while (p > 0) {
-                    for (let m = 0; m < conjunto.length; m++) {
-                        console.log("Transicion que ingresa = ", transicion[m]);
-                        if (conjunto[m] === conjunto1[i]) {
-                            if (transicion[m] === "*") {
-                                NuevosLenguaje.push(lenguaje[m]);
-                                NuevasSalidas.push(transicion[m]);
-                                p--;
-                            } else if (transicion[m].length > 2) {
-                                NuevosLenguaje.push(lenguaje[m]);
-                                NuevasSalidas.push(transicion[m]);
-                                p--;
-                            } else {
-                                NuevosLenguaje.push(lenguaje[m]);
-                                NuevasSalidas.push("*");
-                                p--;
-                            }
-                        }
-                    }
-                }
-                transicion[j] = "";
-                for (let h = 0; h < NuevosLenguaje.length; h++) {
-                    transicion[j] = transicion[j] + NuevosLenguaje[h] + NuevasSalidas[h];
-                    console.log(transicion[j].split("").sort());
-                    console.log("Valores = ", transicion[j]);
-                    Er = transicion[j];
-                }
-            }
-        }
+btn3.addEventListener('click', (evt) => {
+    guardarSelectLee();
+    guardarSelectPop();
+    guardarSelectPush();
+
+    //Automata
+    console.log('INFO AUTOMATA: ');
+    console.log(automataPila1.k);
+    console.log(automataPila1.l);
+    console.log(automataPila1.s);
+    console.log(automataPila1.m);
+
+    //Camino}
+    console.log('INFO CAMINO: ');
+    console.log(caminoPila1.c);
+    console.log(caminoPila1.l);
+    console.log(caminoPila1.s);
+    console.log(caminoPila1.m);
+
+    imgAuPila.setAttribute('src',`${crearAuPila(automataPila1,caminoPila1)}`);
+})
+
+//Eventos Formulario 2
+btn4.addEventListener('click', (evt) => {
+    numAlfAu_Au2 = document.getElementById("alfabeto-au2").value;
+    if(numAlfAu_Au2==""){
+        alert("Debe agregar un valor entre 1 y 27 primero");
+        return 0;
     }
-    return Er;
+    if(numAlfAu_Au2<0){
+        alert("Debe agregar un valor entre 1 y 27");
+        document.getElementById("alfabeto-au2").value="";
+        return 0;
+    }
+    if(numAlfAu_Au2>27){
+        alert("Debe agregar un valor entre 1 y 27"); 
+        document.getElementById("alfabeto-au2").value="";
+        return 0;
+    }
+    console.log('Cant. Alfabeto Au2: '+numAlfAu_Au2);
+})
 
+btn5.addEventListener('click', (evt) => {
+    numAlfAu_Au2 = document.getElementById("alfabeto-au2").value;
+    numAlfPila_Au2 = document.getElementById("alfabeto-pila-au2").value;
+    if(numAlfAu_Au2==""){
+        alert("Primero debe agregar el tamaño del Alfabeto para el Automata.");
+        return 0;
+    }
+    if(numAlfPila_Au2==""){
+        alert("Debe agregar un valor entre 1 y 27 primero");
+        return 0;
+    }
+    if(numAlfPila_Au2<0){
+        alert("Debe agregar un valor entre 1 y 27");
+        document.getElementById("alfabeto-pila-au2").value="";
+        return 0;
+    }
+    if(numAlfPila_Au2>27){
+        alert("Debe agregar un valor entre 1 y 27"); 
+        document.getElementById("alfabeto-pila-au2").value="";
+        return 0;
+    }
+    console.log('Cant. Alfabeto Pila Au2: '+numAlfPila_Au2);
+})
 
-}
+btn6.addEventListener('click', (evt) => {
+    numAlfAu_Au2 = document.getElementById("alfabeto-au2").value;    
+    numEstados_Au2 = document.getElementById("num-estados-au2").value;
+    if(numAlfAu_Au2==""){
+        alert("Primero debe agregar el alfabeto.");
+        return 0;
+    }
+    if(numEstados_Au2umEstados<0){
+        alert("Debe agregar un valor entre 1 y 10");
+        return 0;
+    }
+    if(numEstados_Au2>10){
+        alert("Debe agregar un valor entre 1 y 10");
+        return 0;
+    }
+    console.log('Cant. Estados Au2: '+numEstados_Au2);
+    numTransacciones_Au2 = (numEstados_Au2*2)-1;
+    console.log('Cant. Transacciones Totales Au2: '+numTransacciones_Au2);
+    document.getElementById("indique-au2").innerHTML = '<h2> Indique los elementos de sus transacciones </h2>';
+    imprimirIndicadorAu2();
+    imprimirSelectLeeAu2();
+    imprimirSelectPopAu2();
+    imprimirSelectPushAu2();
+})
 
-function imprimirEr() {
-    var expresion = ER();
-    const output1 = document.querySelector("#LenguajeAsociado1");
-    const output2 = document.querySelector("#LenguajeAsociado2");
-    output1.textContent = (`Expresion regular del Automata`);
-    output1.className = "mb-3 pt-4";
-    output2.textContent = (`Er = [${expresion}]`);
-    output2.className = "mb-4 pb-4";
-}
+btn7.addEventListener('click', (evt) => {
+    guardarSelectLeeAu2();
+    guardarSelectPopAu2();
+    guardarSelectPushAu2();
+
+    //Automata
+    console.log('INFO AUTOMATA 2: ');
+    console.log(automataPila2.k);
+    console.log(automataPila2.l);
+    console.log(automataPila2.s);
+    console.log(automataPila2.m);
+
+    //Camino}
+    console.log('INFO CAMINO Au 2: ');
+    console.log(caminoPila2.c);
+    console.log(caminoPila2.l);
+    console.log(caminoPila2.s);
+    console.log(caminoPila2.m);
+
+    imgAuPilaAu2.setAttribute('src',`${crearAuPila(automataPila2,caminoPila2)}`);
+
+    union(automataPila1,caminoPila1,automataPila2,caminoPila2);
+    imgUnion.setAttribute('src',`${CrearAuUnion(automataPila1,caminoPila1,automataUnion,caminoUnion)}`);
+})
+
