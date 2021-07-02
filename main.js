@@ -14,6 +14,7 @@ const btn7 = document.querySelector(".btn7");
 const imgAuPila = document.querySelector(".Au-Pila");
 const imgAuPilaAu2 = document.querySelector(".Au-Pila-au2");
 const imgUnion = document.querySelector(".Au-Union");
+const imgConca = document.querySelector(".Au-Concatenacion");
 
 //Formulario Automata 1
 const indicador = document.querySelector(".indicador");
@@ -47,7 +48,7 @@ let matrizUnion = [];
 
 let numTransacciones_Au2;
 let Eabc = ["λ","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-let abcPila = ["λ","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+let abcPila = ["λ","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","Q","R","S","T","U","V","W","X","Y","Z"];
 
 //Clase Automata
 class automata{
@@ -59,6 +60,7 @@ class automata{
     }
 }
 
+//Clase Camino
 class camino{
     constructor(c,l,s,m){
         this.c = [];
@@ -68,7 +70,7 @@ class camino{
     }
 }
 
-//Variables Automatas
+//Variables Automatas y Caminos
 let automataPila1 = new automata;
 let caminoPila1 = new camino;
 
@@ -105,7 +107,7 @@ const imprimirSelectLee = () => {
         selNewLee.setAttribute('name',`sel-Lee${i}`);
         selNewLee.setAttribute('id',`sel-Lee${i}`);
         selNewLee.setAttribute('class',`sel-Lee${i}`);
-        //document.getElementById(`sel-Lee${i}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Lee${i}`).style.marginBottom = '17px';
     }
     agregarOptLee();
 }
@@ -143,7 +145,7 @@ const imprimirSelectPop = () => {
         selNewPop.setAttribute('name',`sel-Pop${q}`);
         selNewPop.setAttribute('id',`sel-Pop${q}`);
         selNewPop.setAttribute('class',`sel-Pop${q}`);
-        //document.getElementById(`sel-Pop${q}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Pop${q}`).style.marginBottom = '17px';
     }
     agregarOptPop();
 }
@@ -179,7 +181,7 @@ const imprimirSelectPush = () => {
         selNewPush.setAttribute('name',`sel-Push${l}`);
         selNewPush.setAttribute('id',`sel-Push${l}`);
         selNewPush.setAttribute('class',`sel-Push${l}`);
-        //document.getElementById(`sel-Push${l}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Push${l}`).style.marginBottom = '17px';
     }
     agregarOptPush();
 }
@@ -232,7 +234,7 @@ const imprimirSelectLeeAu2 = () => {
         selNewLeeAu2.setAttribute('name',`sel-Lee-au2-${i}`);
         selNewLeeAu2.setAttribute('id',`sel-Lee-au2-${i}`);
         selNewLeeAu2.setAttribute('class',`sel-Lee-au2-${i}`);
-        //document.getElementById(`sel-Lee${i}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Lee-au2-${i}`).style.marginBottom = '17px';
     }
     agregarOptLeeAu2();
 }
@@ -270,7 +272,7 @@ const imprimirSelectPopAu2 = () => {
         selNewPopAu2.setAttribute('name',`sel-Pop-au2-${q}`);
         selNewPopAu2.setAttribute('id',`sel-Pop-au2-${q}`);
         selNewPopAu2.setAttribute('class',`sel-Pop-au2-${q}`);
-        //document.getElementById(`sel-Pop${q}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Pop-au2-${q}`).style.marginBottom = '17px';
     }
     agregarOptPopAu2();
 }
@@ -306,7 +308,7 @@ const imprimirSelectPushAu2 = () => {
         selNewPushAu2.setAttribute('name',`sel-Push-au2-${l}`);
         selNewPushAu2.setAttribute('id',`sel-Push-au2-${l}`);
         selNewPushAu2.setAttribute('class',`sel-Push-au2-${l}`);
-        //document.getElementById(`sel-Push${l}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Push-au2-${l}`).style.marginBottom = '17px';
     }
     agregarOptPushAu2();
 }
@@ -439,6 +441,88 @@ const CrearAuUnion = (auxAu,auxCa,auxAu2,auxCa2) => {
     return finU;
 }
 
+//Funcion Concatenacion
+const concatenacion = (auxAu,auxCa,auxAu2,auxCa2) => {
+    const auConca = new automata;
+    const caConca = new camino;
+
+    au2 = JSON.parse(JSON.stringify(auxAu2));
+    ca2 = JSON.parse(JSON.stringify(auxCa2));
+
+    let largoAu = Number.parseInt(auxAu.k.length);
+    let largoCa = Number.parseInt(auxCa.c.length);
+
+    for(let h=0;h<au2.k.length;h++){
+        auConca.l.push(au2.l[h]);
+        auConca.s.push(au2.s[h]);
+        auConca.m.push(au2.m[h]);
+
+        let aux = au2.k[h].split('');
+        aux.shift();
+        let val = Number.parseInt(aux.join(''));
+        val=val+largoAu;
+
+        auConca.k.push(`q${val+1}`);
+    }
+
+    for(let s=0;s<ca2.c.length;s++){
+        caConca.l.push(ca2.l[s]);
+        caConca.s.push(ca2.s[s]);
+        caConca.m.push(ca2.m[s]);
+
+        let auxi = ca2.c[s].split('');
+        auxi.shift();
+        let vali = Number.parseInt(auxi.join(''));
+        vali=vali+largoCa;
+
+        caConca.c.push(`c${vali}`);
+    }
+
+    console.log(auConca);
+    console.log(caConca);
+
+    automataConca = JSON.parse(JSON.stringify(auConca));
+    caminoConca = JSON.parse(JSON.stringify(caConca));
+}
+
+//Funcion Imagen de su concatenacion
+const crearAuConca = (auxAu,auxCa,auxAu2,auxCa2) => {
+    let Au_C1 = JSON.parse(JSON.stringify(auxAu));
+    let Ca_C1 =  JSON.parse(JSON.stringify(auxCa));
+
+    let Au_C2 = JSON.parse(JSON.stringify(auxAu2));
+    let Ca_C2 =  JSON.parse(JSON.stringify(auxCa2));
+
+    let transQs_C1 = Au_C1.k[0]+'->'+Au_C1.k[0]+`[label="${Au_C1.l[0]}/${Au_C1.s[0]}/${Au_C1.m[0]}"]`+';';
+    let caminos_C1 = Au_C1.k[0]+'->'+Au_C1.k[1]+`[label="${Ca_C1.l[0]}/${Ca_C1.s[0]}/${Ca_C1.m[0]}"]`+';';
+
+    let transQs_C2 = Au_C2.k[0]+'->'+Au_C2.k[0]+`[label="${Au_C2.l[0]}/${Au_C2.s[0]}/${Au_C2.m[0]}"]`+';';
+    let caminos_C2 = Au_C2.k[0]+'->'+Au_C2.k[1]+`[label="${Ca_C2.l[0]}/${Ca_C2.s[0]}/${Ca_C2.m[0]}"]`+';';
+
+    let final1 = Number.parseInt(Au_C1.k.length)-1;
+    let final2 = Number.parseInt(Au_C2.k.length)-1;
+
+    let finC;
+
+    for(let x=1;x<Au_C1.k.length;x++){
+        transQs_C1 += Au_C1.k[x]+'->'+Au_C1.k[x]+`[label="${Au_C1.l[x]}/${Au_C1.s[x]}/${Au_C1.m[x]}"]`+';';
+    }
+    for(let xx=1;xx<Ca_C1.c.length;xx++){
+        caminos_C1 += Au_C1.k[xx]+'->'+Au_C1.k[xx+1]+`[label="${Ca_C1.l[xx]}/${Ca_C1.s[xx]}/${Ca_C1.m[xx]}"]`+';';
+    }
+
+    for(let y=1;y<Au_C2.k.length;y++){
+        transQs_C2 += Au_C2.k[y]+'->'+Au_C2.k[y]+`[label="${Au_C2.l[y]}/${Au_C2.s[y]}/${Au_C2.m[y]}"]`+';';
+    }
+    for(let yy=1;yy<Ca_C2.c.length;yy++){
+        caminos_C2 += Au_C2.k[yy]+'->'+Au_C2.k[yy+1]+`[label="${Ca_C2.l[yy]}/${Ca_C2.s[yy]}/${Ca_C2.m[yy]}"]`+';';
+    }
+
+    finC = 'https://quickchart.io/graphviz?graph=digraph{poi[shape=point];poi->qi[label="Inicio"];'+'qi->q0[label="λ/λ/P"];'+Au_C2.k[final2]+'[shape=doublecircle];'+transQs_C1+caminos_C1+transQs_C2+caminos_C2+`q${final1}->q${final1+1}[label="λ/P/λ"];q${final1+1}->${Au_C2.k[0]}[label="λ/λ/λ"]`+'}';
+    console.log(finC);
+    return finC;
+}
+
 //Eventos Formulario 1
 btn0.addEventListener('click', (evt) => {
     numAlfAu = document.getElementById("alfabeto-au").value;
@@ -456,8 +540,6 @@ btn0.addEventListener('click', (evt) => {
         document.getElementById("alfabeto-au").value="";
         return 0;
     }
-    
-    
     console.log('Cant. Alfabeto Au: '+numAlfAu);
 })
 
@@ -624,5 +706,7 @@ btn7.addEventListener('click', (evt) => {
 
     union(automataPila1,caminoPila1,automataPila2,caminoPila2);
     imgUnion.setAttribute('src',`${CrearAuUnion(automataPila1,caminoPila1,automataUnion,caminoUnion)}`);
-})
 
+    concatenacion(automataPila1,caminoPila1,automataPila2,caminoPila2);
+    imgConca.setAttribute('src',`${crearAuConca(automataPila1,caminoPila1,automataConca,caminoConca)}`);
+})
