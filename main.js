@@ -526,6 +526,7 @@ const crearAuConca = (auxAu,auxCa,auxAu2,auxCa2) => {
 //Eventos Formulario 1
 btn0.addEventListener('click', (evt) => {
     numAlfAu = document.getElementById("alfabeto-au").value;
+
     if(numAlfAu==""){
         alert("Debe agregar un valor entre 1 y 27 primero");
         return 0;
@@ -540,10 +541,12 @@ btn0.addEventListener('click', (evt) => {
         document.getElementById("alfabeto-au").value="";
         return 0;
     }
+
     console.log('Cant. Alfabeto Au: '+numAlfAu);
 })
 
 btn1.addEventListener('click', (evt) => {
+
     numAlfAu = document.getElementById("alfabeto-au").value;
     numAlfPila = document.getElementById("alfabeto-pila").value;
     if(numAlfAu==""){
@@ -564,10 +567,12 @@ btn1.addEventListener('click', (evt) => {
         document.getElementById("alfabeto-pila").value="";
         return 0;
     }
+
     console.log('Cant. Alfabeto Pila: '+numAlfPila);
 })
 
 btn2.addEventListener('click', (evt) => {
+
     numAlfAu = document.getElementById("alfabeto-au").value;
     numEstados = document.getElementById("num-estados").value;
     if(numAlfAu==""){
@@ -582,6 +587,7 @@ btn2.addEventListener('click', (evt) => {
         alert("Debe agregar un valor entre 1 y 10");
         return 0;
     }
+
     console.log('Cant. Estados: '+numEstados);
     numTransacciones = (numEstados*2)-1;
     console.log('Cant. Transacciones Totales: '+numTransacciones);
@@ -617,6 +623,7 @@ btn3.addEventListener('click', (evt) => {
 //Eventos Formulario 2
 btn4.addEventListener('click', (evt) => {
     numAlfAu_Au2 = document.getElementById("alfabeto-au2").value;
+
     if(numAlfAu_Au2==""){
         alert("Debe agregar un valor entre 1 y 27 primero");
         return 0;
@@ -631,10 +638,12 @@ btn4.addEventListener('click', (evt) => {
         document.getElementById("alfabeto-au2").value="";
         return 0;
     }
+
     console.log('Cant. Alfabeto Au2: '+numAlfAu_Au2);
 })
 
 btn5.addEventListener('click', (evt) => {
+
     numAlfAu_Au2 = document.getElementById("alfabeto-au2").value;
     numAlfPila_Au2 = document.getElementById("alfabeto-pila-au2").value;
     if(numAlfAu_Au2==""){
@@ -655,10 +664,12 @@ btn5.addEventListener('click', (evt) => {
         document.getElementById("alfabeto-pila-au2").value="";
         return 0;
     }
+
     console.log('Cant. Alfabeto Pila Au2: '+numAlfPila_Au2);
 })
 
 btn6.addEventListener('click', (evt) => {
+
     numAlfAu_Au2 = document.getElementById("alfabeto-au2").value;    
     numEstados_Au2 = document.getElementById("num-estados-au2").value;
     if(numAlfAu_Au2==""){
@@ -673,6 +684,7 @@ btn6.addEventListener('click', (evt) => {
         alert("Debe agregar un valor entre 1 y 10");
         return 0;
     }
+
     console.log('Cant. Estados Au2: '+numEstados_Au2);
     numTransacciones_Au2 = (numEstados_Au2*2)-1;
     console.log('Cant. Transacciones Totales Au2: '+numTransacciones_Au2);
