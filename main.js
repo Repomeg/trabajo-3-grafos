@@ -107,7 +107,7 @@ const imprimirSelectLee = () => {
         selNewLee.setAttribute('name',`sel-Lee${i}`);
         selNewLee.setAttribute('id',`sel-Lee${i}`);
         selNewLee.setAttribute('class',`sel-Lee${i}`);
-        //document.getElementById(`sel-Lee${i}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Lee${i}`).style.marginBottom = '17px';
     }
     agregarOptLee();
 }
@@ -145,7 +145,7 @@ const imprimirSelectPop = () => {
         selNewPop.setAttribute('name',`sel-Pop${q}`);
         selNewPop.setAttribute('id',`sel-Pop${q}`);
         selNewPop.setAttribute('class',`sel-Pop${q}`);
-        //document.getElementById(`sel-Pop${q}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Pop${q}`).style.marginBottom = '17px';
     }
     agregarOptPop();
 }
@@ -181,7 +181,7 @@ const imprimirSelectPush = () => {
         selNewPush.setAttribute('name',`sel-Push${l}`);
         selNewPush.setAttribute('id',`sel-Push${l}`);
         selNewPush.setAttribute('class',`sel-Push${l}`);
-        //document.getElementById(`sel-Push${l}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Push${l}`).style.marginBottom = '17px';
     }
     agregarOptPush();
 }
@@ -234,7 +234,7 @@ const imprimirSelectLeeAu2 = () => {
         selNewLeeAu2.setAttribute('name',`sel-Lee-au2-${i}`);
         selNewLeeAu2.setAttribute('id',`sel-Lee-au2-${i}`);
         selNewLeeAu2.setAttribute('class',`sel-Lee-au2-${i}`);
-        //document.getElementById(`sel-Lee${i}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Lee-au2-${i}`).style.marginBottom = '17px';
     }
     agregarOptLeeAu2();
 }
@@ -272,7 +272,7 @@ const imprimirSelectPopAu2 = () => {
         selNewPopAu2.setAttribute('name',`sel-Pop-au2-${q}`);
         selNewPopAu2.setAttribute('id',`sel-Pop-au2-${q}`);
         selNewPopAu2.setAttribute('class',`sel-Pop-au2-${q}`);
-        //document.getElementById(`sel-Pop${q}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Pop-au2-${q}`).style.marginBottom = '17px';
     }
     agregarOptPopAu2();
 }
@@ -308,7 +308,7 @@ const imprimirSelectPushAu2 = () => {
         selNewPushAu2.setAttribute('name',`sel-Push-au2-${l}`);
         selNewPushAu2.setAttribute('id',`sel-Push-au2-${l}`);
         selNewPushAu2.setAttribute('class',`sel-Push-au2-${l}`);
-        //document.getElementById(`sel-Push${l}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Push-au2-${l}`).style.marginBottom = '17px';
     }
     agregarOptPushAu2();
 }
@@ -618,4 +618,3 @@ btn7.addEventListener('click', (evt) => {
     concatenacion(automataPila1,caminoPila1,automataPila2,caminoPila2);
     imgConca.setAttribute('src',`${crearAuConca(automataPila1,caminoPila1,automataConca,caminoConca)}`);
 })
-
