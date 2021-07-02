@@ -716,43 +716,54 @@ btn7.addEventListener('click', (evt) => {
 var x= document.getElementById("alfabeto-au2").value;
 var y= document.getElementById("alfabeto-pila-au2").value;
 var z= document.getElementById("num-estados-au2").value;
-if(x==""){
-    alert("Primero debe agregar un Alfabeto para el Automata");
+if( automataPila1.k.length && caminoPila1.c.length > 0  ){
+    if(x==""){
+        alert("Primero debe agregar un Alfabeto para el Automata");
+        return 0;
+    }
+    if(y==""){
+        alert("Primero debe agregar un Alfabeto para la Pila");
+        return 0;
+    }
+    if(z==""){
+        alert("Primero debe agregar una Cantidad de Conjuntos identificadores");
+        return 0; 
+    }
+    
+    
+        guardarSelectLeeAu2();
+        guardarSelectPopAu2();
+        guardarSelectPushAu2();
+    
+        //Automata
+        console.log('INFO AUTOMATA 2: ');
+        console.log(automataPila2.k);
+        console.log(automataPila2.l);
+        console.log(automataPila2.s);
+        console.log(automataPila2.m);
+    
+        //Camino}
+        console.log('INFO CAMINO Au 2: ');
+        console.log(caminoPila2.c);
+        console.log(caminoPila2.l);
+        console.log(caminoPila2.s);
+        console.log(caminoPila2.m);
+    
+        imgAuPilaAu2.setAttribute('src',`${crearAuPila(automataPila2,caminoPila2)}`);
+    
+        union(automataPila1,caminoPila1,automataPila2,caminoPila2);
+        imgUnion.setAttribute('src',`${CrearAuUnion(automataPila1,caminoPila1,automataUnion,caminoUnion)}`);
+    
+        concatenacion(automataPila1,caminoPila1,automataPila2,caminoPila2);
+        imgConca.setAttribute('src',`${crearAuConca(automataPila1,caminoPila1,automataConca,caminoConca)}`);
+    
+}
+else{
+    alert("Primero debe agregar el Automata de Pila 1");
     return 0;
 }
-if(y==""){
-    alert("Primero debe agregar un Alfabeto para la Pila");
-    return 0;
-}
-if(z==""){
-    alert("Primero debe agregar una Cantidad de Conjuntos identificadores");
-    return 0; 
-}
+ 
 
 
-    guardarSelectLeeAu2();
-    guardarSelectPopAu2();
-    guardarSelectPushAu2();
 
-    //Automata
-    console.log('INFO AUTOMATA 2: ');
-    console.log(automataPila2.k);
-    console.log(automataPila2.l);
-    console.log(automataPila2.s);
-    console.log(automataPila2.m);
-
-    //Camino}
-    console.log('INFO CAMINO Au 2: ');
-    console.log(caminoPila2.c);
-    console.log(caminoPila2.l);
-    console.log(caminoPila2.s);
-    console.log(caminoPila2.m);
-
-    imgAuPilaAu2.setAttribute('src',`${crearAuPila(automataPila2,caminoPila2)}`);
-
-    union(automataPila1,caminoPila1,automataPila2,caminoPila2);
-    imgUnion.setAttribute('src',`${CrearAuUnion(automataPila1,caminoPila1,automataUnion,caminoUnion)}`);
-
-    concatenacion(automataPila1,caminoPila1,automataPila2,caminoPila2);
-    imgConca.setAttribute('src',`${crearAuConca(automataPila1,caminoPila1,automataConca,caminoConca)}`);
 })
