@@ -676,7 +676,7 @@ btn6.addEventListener('click', (evt) => {
         alert("Primero debe agregar el alfabeto.");
         return 0;
     }
-    if(numEstados_Au2umEstados<0){
+    if(numEstados_Au2<0){
         alert("Debe agregar un valor entre 1 y 10");
         return 0;
     }
