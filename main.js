@@ -756,6 +756,7 @@ btn8.addEventListener('click', (evt) => {
         
     imgAuPila.setAttribute('src',`${crearAuPila(automataPila1,caminoPila1)}`);
     imgAuPilaAu2.setAttribute('src',`${crearAuPila(automataPila2,caminoPila2)}`);
+
     
         union(automataPila1,caminoPila1,automataPila2,caminoPila2);
         imgUnion.setAttribute('src',`${CrearAuUnion(automataPila1,caminoPila1,automataUnion,caminoUnion)}`);
@@ -768,3 +769,4 @@ btn8.addEventListener('click', (evt) => {
         return 0;
     }
 })
+
