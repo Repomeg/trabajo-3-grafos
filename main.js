@@ -543,6 +543,7 @@ btn0.addEventListener('click', (evt) => {
     }
 
     console.log('Cant. Alfabeto Au: '+numAlfAu);
+    btn0.disabled=true;
 })
 
 btn1.addEventListener('click', (evt) => {
@@ -567,7 +568,7 @@ btn1.addEventListener('click', (evt) => {
         document.getElementById("alfabeto-pila").value="";
         return 0;
     }
-
+    btn1.disabled=true;
     console.log('Cant. Alfabeto Pila: '+numAlfPila);
 })
 
@@ -604,6 +605,7 @@ btn2.addEventListener('click', (evt) => {
     imprimirSelectLee();
     imprimirSelectPop();
     imprimirSelectPush();
+    btn2.disabled=true;
 })
 
 btn3.addEventListener('click', (evt) => {
@@ -664,6 +666,7 @@ btn4.addEventListener('click', (evt) => {
     }
 
     console.log('Cant. Alfabeto Au2: '+numAlfAu_Au2);
+    btn4.disabled=true;
 })
 
 btn5.addEventListener('click', (evt) => {
@@ -688,7 +691,7 @@ btn5.addEventListener('click', (evt) => {
         document.getElementById("alfabeto-pila-au2").value="";
         return 0;
     }
-
+    btn5.disabled=true;
     console.log('Cant. Alfabeto Pila Au2: '+numAlfPila_Au2);
 })
 
@@ -726,6 +729,7 @@ btn6.addEventListener('click', (evt) => {
     imprimirSelectLeeAu2();
     imprimirSelectPopAu2();
     imprimirSelectPushAu2();
+    btn6.disabled=true;
 })
 
 btn7.addEventListener('click', (evt) => {
