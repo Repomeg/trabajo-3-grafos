@@ -572,11 +572,19 @@ btn1.addEventListener('click', (evt) => {
 })
 
 btn2.addEventListener('click', (evt) => {
-
+    var xy= document.getElementById("alfabeto-pila").value;
     numAlfAu = document.getElementById("alfabeto-au").value;
     numEstados = document.getElementById("num-estados").value;
     if(numAlfAu==""){
         alert("Primero debe agregar el alfabeto.");
+        return 0;
+    }
+    if(xy==""){
+        alert("Primero debe agregar el Alfabeto de la Pila");
+        return 0;
+    }
+    if(numEstados==""){
+        alert("Debe agregar un valor entre 1 y 10");
         return 0;
     }
     if(numEstados<0){
@@ -685,11 +693,20 @@ btn5.addEventListener('click', (evt) => {
 })
 
 btn6.addEventListener('click', (evt) => {
-
+    var yz=document.getElementById("alfabeto-pila-au2").value;
     numAlfAu_Au2 = document.getElementById("alfabeto-au2").value;    
     numEstados_Au2 = document.getElementById("num-estados-au2").value;
     if(numAlfAu_Au2==""){
-        alert("Primero debe agregar el alfabeto.");
+        alert("Primero debe agregar el Alfabeto del Automata");
+        return 0;
+    }
+    if(yz==""){
+        
+        alert("Primero debe agregar el Alfabeto de la Pila");
+        return 0;
+    }
+    if(numEstados_Au2==""){
+        alert("Debe agregar un valor entre 1 y 10");
         return 0;
     }
     if(numEstados_Au2<0){
