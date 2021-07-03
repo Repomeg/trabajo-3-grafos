@@ -9,7 +9,7 @@ const btn4 = document.querySelector(".btn4");
 const btn5 = document.querySelector(".btn5");
 const btn6 = document.querySelector(".btn6");
 const btn7 = document.querySelector(".btn7");
-
+const btn8 = document.querySelector(".btn8");
 //Imagenes Automata
 const imgAuPila = document.querySelector(".Au-Pila");
 const imgAuPilaAu2 = document.querySelector(".Au-Pila-au2");
@@ -528,16 +528,16 @@ btn0.addEventListener('click', (evt) => {
     numAlfAu = document.getElementById("alfabeto-au").value;
 
     if(numAlfAu==""){
-        alert("Debe agregar un valor entre 1 y 27 primero");
+        alert("Debe agregar un valor entre 1 y 26 primero");
         return 0;
     }
     if(numAlfAu<0){
-        alert("Debe agregar un valor entre 1 y 27");
+        alert("Debe agregar un valor entre 1 y 26");
         document.getElementById("alfabeto-au").value="";
         return 0;
     }
-    if(numAlfAu>27){
-        alert("Debe agregar un valor entre 1 y 27"); 
+    if(numAlfAu>26){
+        alert("Debe agregar un valor entre 1 y 26"); 
         document.getElementById("alfabeto-au").value="";
         return 0;
     }
@@ -554,16 +554,16 @@ btn1.addEventListener('click', (evt) => {
         return 0;
     }
     if(numAlfPila==""){
-        alert("Debe agregar un valor entre 1 y 27 primero");
+        alert("Debe agregar un valor entre 1 y 25 primero");
         return 0;
     }
     if(numAlfPila<0){
-        alert("Debe agregar un valor entre 1 y 27");
+        alert("Debe agregar un valor entre 1 y 25");
         document.getElementById("alfabeto-pila").value="";
         return 0;
     }
-    if(numAlfPila>27){
-        alert("Debe agregar un valor entre 1 y 27"); 
+    if(numAlfPila>25){
+        alert("Debe agregar un valor entre 1 y 25"); 
         document.getElementById("alfabeto-pila").value="";
         return 0;
     }
@@ -599,6 +599,22 @@ btn2.addEventListener('click', (evt) => {
 })
 
 btn3.addEventListener('click', (evt) => {
+var x= document.getElementById("alfabeto-au").value;
+var y= document.getElementById("alfabeto-pila").value;
+var z= document.getElementById("num-estados").value;
+if(x==""){
+    alert("Primero debe agregar un Alfabeto para el Automata");
+    return 0;
+}
+if(y==""){
+    alert("Primero debe agregar un Alfabeto para la Pila");
+    return 0;
+}
+if(z==""){
+    alert("Primero debe agregar una Cantidad de Conjuntos identificadores");
+    return 0; 
+}
+
     guardarSelectLee();
     guardarSelectPop();
     guardarSelectPush();
@@ -617,7 +633,7 @@ btn3.addEventListener('click', (evt) => {
     console.log(caminoPila1.s);
     console.log(caminoPila1.m);
 
-    imgAuPila.setAttribute('src',`${crearAuPila(automataPila1,caminoPila1)}`);
+    btn3.disabled= true;
 })
 
 //Eventos Formulario 2
@@ -625,16 +641,16 @@ btn4.addEventListener('click', (evt) => {
     numAlfAu_Au2 = document.getElementById("alfabeto-au2").value;
 
     if(numAlfAu_Au2==""){
-        alert("Debe agregar un valor entre 1 y 27 primero");
+        alert("Debe agregar un valor entre 1 y 26 primero");
         return 0;
     }
     if(numAlfAu_Au2<0){
-        alert("Debe agregar un valor entre 1 y 27");
+        alert("Debe agregar un valor entre 1 y 26");
         document.getElementById("alfabeto-au2").value="";
         return 0;
     }
-    if(numAlfAu_Au2>27){
-        alert("Debe agregar un valor entre 1 y 27"); 
+    if(numAlfAu_Au2>26){
+        alert("Debe agregar un valor entre 1 y 26"); 
         document.getElementById("alfabeto-au2").value="";
         return 0;
     }
@@ -651,16 +667,16 @@ btn5.addEventListener('click', (evt) => {
         return 0;
     }
     if(numAlfPila_Au2==""){
-        alert("Debe agregar un valor entre 1 y 27 primero");
+        alert("Debe agregar un valor entre 1 y 25 primero");
         return 0;
     }
     if(numAlfPila_Au2<0){
-        alert("Debe agregar un valor entre 1 y 27");
+        alert("Debe agregar un valor entre 1 y 25");
         document.getElementById("alfabeto-pila-au2").value="";
         return 0;
     }
-    if(numAlfPila_Au2>27){
-        alert("Debe agregar un valor entre 1 y 27"); 
+    if(numAlfPila_Au2>25){
+        alert("Debe agregar un valor entre 1 y 25"); 
         document.getElementById("alfabeto-pila-au2").value="";
         return 0;
     }
@@ -696,29 +712,61 @@ btn6.addEventListener('click', (evt) => {
 })
 
 btn7.addEventListener('click', (evt) => {
-    guardarSelectLeeAu2();
-    guardarSelectPopAu2();
-    guardarSelectPushAu2();
+var x= document.getElementById("alfabeto-au2").value;
+var y= document.getElementById("alfabeto-pila-au2").value;
+var z= document.getElementById("num-estados-au2").value;
+    if(x==""){
+        alert("Primero debe agregar un Alfabeto para el Automata");
+        return 0;
+    }
+    if(y==""){
+        alert("Primero debe agregar un Alfabeto para la Pila");
+        return 0;
+    }
+    if(z==""){
+        alert("Primero debe agregar una Cantidad de Conjuntos identificadores");
+        return 0; 
+    }
+    
+    
+        guardarSelectLeeAu2();
+        guardarSelectPopAu2();
+        guardarSelectPushAu2();
+    
+        //Automata
+        console.log('INFO AUTOMATA 2: ');
+        console.log(automataPila2.k);
+        console.log(automataPila2.l);
+        console.log(automataPila2.s);
+        console.log(automataPila2.m);
+    
+        //Camino}
+        console.log('INFO CAMINO Au 2: ');
+        console.log(caminoPila2.c);
+        console.log(caminoPila2.l);
+        console.log(caminoPila2.s);
+        console.log(caminoPila2.m);
+    
+        btn7.disabled= true;
 
-    //Automata
-    console.log('INFO AUTOMATA 2: ');
-    console.log(automataPila2.k);
-    console.log(automataPila2.l);
-    console.log(automataPila2.s);
-    console.log(automataPila2.m);
+})
 
-    //Camino}
-    console.log('INFO CAMINO Au 2: ');
-    console.log(caminoPila2.c);
-    console.log(caminoPila2.l);
-    console.log(caminoPila2.s);
-    console.log(caminoPila2.m);
-
+btn8.addEventListener('click', (evt) => {
+    if(automataPila1.k.length && caminoPila1.c.length > 0  ){
+        
+    imgAuPila.setAttribute('src',`${crearAuPila(automataPila1,caminoPila1)}`);
     imgAuPilaAu2.setAttribute('src',`${crearAuPila(automataPila2,caminoPila2)}`);
 
-    union(automataPila1,caminoPila1,automataPila2,caminoPila2);
-    imgUnion.setAttribute('src',`${CrearAuUnion(automataPila1,caminoPila1,automataUnion,caminoUnion)}`);
-
-    concatenacion(automataPila1,caminoPila1,automataPila2,caminoPila2);
-    imgConca.setAttribute('src',`${crearAuConca(automataPila1,caminoPila1,automataConca,caminoConca)}`);
+    
+        union(automataPila1,caminoPila1,automataPila2,caminoPila2);
+        imgUnion.setAttribute('src',`${CrearAuUnion(automataPila1,caminoPila1,automataUnion,caminoUnion)}`);
+    
+        concatenacion(automataPila1,caminoPila1,automataPila2,caminoPila2);
+        imgConca.setAttribute('src',`${crearAuConca(automataPila1,caminoPila1,automataConca,caminoConca)}`);
+    }
+    else{
+        alert("Primero debe agregar los 2 Automatas de Pila");
+        return 0;
+    }
 })
+
