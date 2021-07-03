@@ -9,8 +9,7 @@ const btn4 = document.querySelector(".btn4");
 const btn5 = document.querySelector(".btn5");
 const btn6 = document.querySelector(".btn6");
 const btn7 = document.querySelector(".btn7");
-
-
+const btn8 = document.querySelector(".btn8");
 //Imagenes Automata
 const imgAuPila = document.querySelector(".Au-Pila");
 const imgAuPilaAu2 = document.querySelector(".Au-Pila-au2");
@@ -634,7 +633,7 @@ if(z==""){
     console.log(caminoPila1.s);
     console.log(caminoPila1.m);
 
-    imgAuPila.setAttribute('src',`${crearAuPila(automataPila1,caminoPila1)}`);
+    btn3.disabled= true;
 })
 
 //Eventos Formulario 2
@@ -716,7 +715,6 @@ btn7.addEventListener('click', (evt) => {
 var x= document.getElementById("alfabeto-au2").value;
 var y= document.getElementById("alfabeto-pila-au2").value;
 var z= document.getElementById("num-estados-au2").value;
-if( automataPila1.k.length && caminoPila1.c.length > 0  ){
     if(x==""){
         alert("Primero debe agregar un Alfabeto para el Automata");
         return 0;
@@ -749,21 +747,24 @@ if( automataPila1.k.length && caminoPila1.c.length > 0  ){
         console.log(caminoPila2.s);
         console.log(caminoPila2.m);
     
-        imgAuPilaAu2.setAttribute('src',`${crearAuPila(automataPila2,caminoPila2)}`);
+        btn7.disabled= true;
+
+})
+
+btn8.addEventListener('click', (evt) => {
+    if(automataPila1.k.length && caminoPila1.c.length > 0  ){
+        
+    imgAuPila.setAttribute('src',`${crearAuPila(automataPila1,caminoPila1)}`);
+    imgAuPilaAu2.setAttribute('src',`${crearAuPila(automataPila2,caminoPila2)}`);
     
         union(automataPila1,caminoPila1,automataPila2,caminoPila2);
         imgUnion.setAttribute('src',`${CrearAuUnion(automataPila1,caminoPila1,automataUnion,caminoUnion)}`);
     
         concatenacion(automataPila1,caminoPila1,automataPila2,caminoPila2);
         imgConca.setAttribute('src',`${crearAuConca(automataPila1,caminoPila1,automataConca,caminoConca)}`);
-    
-}
-else{
-    alert("Primero debe agregar el Automata de Pila 1");
-    return 0;
-}
- 
-
-
-
+    }
+    else{
+        alert("Primero debe agregar los 2 Automatas de Pila");
+        return 0;
+    }
 })
