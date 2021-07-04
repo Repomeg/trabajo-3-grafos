@@ -9,6 +9,7 @@ const btn4 = document.querySelector(".btn4");
 const btn5 = document.querySelector(".btn5");
 const btn6 = document.querySelector(".btn6");
 const btn7 = document.querySelector(".btn7");
+const btn8 = document.querySelector(".btn8");
 
 //Imagenes Automata
 const imgAuPila = document.querySelector(".Au-Pila");
@@ -24,6 +25,7 @@ const selInputsPush = document.querySelector(".selectPush");
 const optInputsPush = document.querySelector(".optPush");
 const selInputsPop = document.querySelector(".selectPop");
 const optInputsPop = document.querySelector(".optPop");
+const checkFinal = document.querySelector(".checkFinal");
 
 //Formulario Automata 1
 const indicadorAu2 = document.querySelector(".indicador-au2");
@@ -32,7 +34,8 @@ const optInputsLeeAu2 = document.querySelector(".optLee-au2");
 const selInputsPushAu2 = document.querySelector(".selectPush-au2");
 const optInputsPushAu2 = document.querySelector(".optPush-au2");
 const selInputsPopAu2 = document.querySelector(".selectPop-au2");
-const optInputsPopAu2 = document.querySelector(".optPop");
+const optInputsPopAu2 = document.querySelector(".optPop-au2");
+const checkFinalAu2 = document.querySelector(".checkFinal-au2");
 
 //Variables Globales
 let numAlfAu;
@@ -52,11 +55,12 @@ let abcPila = ["λ","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O",
 
 //Clase Automata
 class automata{
-    constructor(k,l,s,m){
+    constructor(k,l,s,m,f){
         this.k = [];
         this.l = [];
         this.s = [];
         this.m = [];
+        this.f = [];
     }
 }
 
@@ -107,7 +111,7 @@ const imprimirSelectLee = () => {
         selNewLee.setAttribute('name',`sel-Lee${i}`);
         selNewLee.setAttribute('id',`sel-Lee${i}`);
         selNewLee.setAttribute('class',`sel-Lee${i}`);
-        //document.getElementById(`sel-Lee${i}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Lee${i}`).style.marginBottom = '17px';
     }
     agregarOptLee();
 }
@@ -145,7 +149,7 @@ const imprimirSelectPop = () => {
         selNewPop.setAttribute('name',`sel-Pop${q}`);
         selNewPop.setAttribute('id',`sel-Pop${q}`);
         selNewPop.setAttribute('class',`sel-Pop${q}`);
-        //document.getElementById(`sel-Pop${q}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Pop${q}`).style.marginBottom = '17px';
     }
     agregarOptPop();
 }
@@ -181,7 +185,7 @@ const imprimirSelectPush = () => {
         selNewPush.setAttribute('name',`sel-Push${l}`);
         selNewPush.setAttribute('id',`sel-Push${l}`);
         selNewPush.setAttribute('class',`sel-Push${l}`);
-        //document.getElementById(`sel-Push${l}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Push${l}`).style.marginBottom = '17px';
     }
     agregarOptPush();
 }
@@ -210,6 +214,23 @@ const guardarSelectPush = () => {
     }
 }
 
+const imprimirCheckFinal = () => {
+    for(let po=0; po<numEstados; po++){
+        const checkNewFin = document.createElement('input');
+        checkFinal.append(checkNewFin);
+        checkNewFin.setAttribute('type','checkbox');
+        checkNewFin.setAttribute('id',`check-Fin${po}`);
+        checkFinal.append(`q${po} `);
+    }
+}
+
+const guardarCheckFinal = () => {
+    for(let yu=0; yu<numEstados; yu++){
+        let check = document.getElementById(`check-Fin${yu}`).checked;
+        automataPila1.f.push(check);
+    }
+}
+
 //Funciones Formulario Automata Pila 2
 const imprimirIndicadorAu2 = () => {
     for(let t=0;t<numTransacciones_Au2;t++){
@@ -234,7 +255,7 @@ const imprimirSelectLeeAu2 = () => {
         selNewLeeAu2.setAttribute('name',`sel-Lee-au2-${i}`);
         selNewLeeAu2.setAttribute('id',`sel-Lee-au2-${i}`);
         selNewLeeAu2.setAttribute('class',`sel-Lee-au2-${i}`);
-        //document.getElementById(`sel-Lee${i}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Lee-au2-${i}`).style.marginBottom = '17px';
     }
     agregarOptLeeAu2();
 }
@@ -272,7 +293,7 @@ const imprimirSelectPopAu2 = () => {
         selNewPopAu2.setAttribute('name',`sel-Pop-au2-${q}`);
         selNewPopAu2.setAttribute('id',`sel-Pop-au2-${q}`);
         selNewPopAu2.setAttribute('class',`sel-Pop-au2-${q}`);
-        //document.getElementById(`sel-Pop${q}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Pop-au2-${q}`).style.marginBottom = '17px';
     }
     agregarOptPopAu2();
 }
@@ -308,7 +329,7 @@ const imprimirSelectPushAu2 = () => {
         selNewPushAu2.setAttribute('name',`sel-Push-au2-${l}`);
         selNewPushAu2.setAttribute('id',`sel-Push-au2-${l}`);
         selNewPushAu2.setAttribute('class',`sel-Push-au2-${l}`);
-        //document.getElementById(`sel-Push${l}`).style.marginBottom = '5px';
+        document.getElementById(`sel-Push-au2-${l}`).style.marginBottom = '17px';
     }
     agregarOptPushAu2();
 }
@@ -337,6 +358,23 @@ const guardarSelectPushAu2 = () => {
     }
 }
 
+const imprimirCheckFinalAu2 = () => {
+    for(let pi=0; pi<numEstados_Au2; pi++){
+        const checkNewFinAu2 = document.createElement('input');
+        checkFinalAu2.append(checkNewFinAu2);
+        checkNewFinAu2.setAttribute('type','checkbox');
+        checkNewFinAu2.setAttribute('id',`check-Fin-au2${pi}`);
+        checkFinalAu2.append(`q${pi} `);
+    }
+}
+
+const guardarCheckFinalAu2 = () => {
+    for(let yo=0; yo<numEstados_Au2; yo++){
+        let checki = document.getElementById(`check-Fin-au2${yo}`).checked;
+        automataPila2.f.push(checki)
+    }
+}
+
 //Funcion Imagen de su automata Pila
 const crearAuPila = (auxAu,auxCa) => {
     let Au =  JSON.parse(JSON.stringify(auxAu));
@@ -344,7 +382,7 @@ const crearAuPila = (auxAu,auxCa) => {
 
     let transQs = Au.k[0]+'->'+Au.k[0]+`[label="${Au.l[0]}/${Au.s[0]}/${Au.m[0]}"]`+';';
     let caminos = Au.k[0]+'->'+Au.k[1]+`[label="${Ca.l[0]}/${Ca.s[0]}/${Ca.m[0]}"]`+';';
-    let final = Number.parseInt(Au.k.length)-1;
+    let double = '';
     let fin;
 
     for(let z=1;z<Au.k.length;z++){
@@ -355,7 +393,13 @@ const crearAuPila = (auxAu,auxCa) => {
         caminos += Au.k[zz]+'->'+Au.k[zz+1]+`[label="${Ca.l[zz]}/${Ca.s[zz]}/${Ca.m[zz]}"]`+';';
     }
 
-    fin = 'https://quickchart.io/graphviz?graph=digraph{poi[shape=point];poi->q0[label="Inicio"];'+Au.k[final]+'[shape=doublecircle];'+transQs+caminos+'}';
+    for(let zx=0;zx<Au.k.length;zx++){
+        if(Au.f[zx]==true){
+            double+=`${Au.k[zx]} [shape=doublecircle];`
+        }
+    }
+
+    fin = 'https://quickchart.io/graphviz?graph=digraph{poi[shape=point];poi->q0[label="Inicio"];'+double+transQs+caminos+'}';
     console.log(fin);
     return fin;
 }
@@ -375,6 +419,7 @@ const union = (auxAu,auxCa,auxAu2,auxCa2) => {
         auUnion.l.push(au2.l[h]);
         auUnion.s.push(au2.s[h]);
         auUnion.m.push(au2.m[h]);
+        auUnion.f.push(au2.f[h]);
 
         let aux = au2.k[h].split('');
         aux.shift();
@@ -417,8 +462,7 @@ const CrearAuUnion = (auxAu,auxCa,auxAu2,auxCa2) => {
     let transQs_U2 = Au_U2.k[0]+'->'+Au_U2.k[0]+`[label="${Au_U2.l[0]}/${Au_U2.s[0]}/${Au_U2.m[0]}"]`+';';
     let caminos_U2 = Au_U2.k[0]+'->'+Au_U2.k[1]+`[label="${Ca_U2.l[0]}/${Ca_U2.s[0]}/${Ca_U2.m[0]}"]`+';';
 
-    let final1 = Number.parseInt(Au_U1.k.length)-1;
-    let final2 = Number.parseInt(Au_U2.k.length)-1;
+    let double = '';
 
     let finU;
 
@@ -436,7 +480,19 @@ const CrearAuUnion = (auxAu,auxCa,auxAu2,auxCa2) => {
         caminos_U2 += Au_U2.k[yy]+'->'+Au_U2.k[yy+1]+`[label="${Ca_U2.l[yy]}/${Ca_U2.s[yy]}/${Ca_U2.m[yy]}"]`+';';
     }
 
-    finU = 'https://quickchart.io/graphviz?graph=digraph{poi[shape=point];poi->qi[label="Inicio"];'+'qi->q0[label="λ/λ/λ"];qi->'+Au_U2.k[0]+'[label="λ/λ/λ"];'+Au_U1.k[final1]+'[shape=doublecircle];'+Au_U2.k[final2]+'[shape=doublecircle];'+transQs_U1+caminos_U1+transQs_U2+caminos_U2+'}';
+    for(let zi=0;zi<Au_U1.k.length;zi++){
+        if(Au_U1.f[zi]==true){
+            double+=`${Au_U1.k[zi]} [shape=doublecircle];`;
+        }
+    }
+    for(let zp=0;zp<Au_U2.k.length;zp++){
+        if(Au_U2.f[zp]==true){
+            double+=`${Au_U2.k[zp]} [shape=doublecircle];`;
+        }
+    }
+
+
+    finU = 'https://quickchart.io/graphviz?graph=digraph{poi[shape=point];poi->qi[label="Inicio"];'+'qi->q0[label="λ/λ/λ"];qi->'+Au_U2.k[0]+'[label="λ/λ/λ"];'+double+transQs_U1+caminos_U1+transQs_U2+caminos_U2+'}';
     console.log(finU);
     return finU;
 }
@@ -456,6 +512,7 @@ const concatenacion = (auxAu,auxCa,auxAu2,auxCa2) => {
         auConca.l.push(au2.l[h]);
         auConca.s.push(au2.s[h]);
         auConca.m.push(au2.m[h]);
+        auConca.f.push(au2.f[h]);
 
         let aux = au2.k[h].split('');
         aux.shift();
@@ -499,6 +556,9 @@ const crearAuConca = (auxAu,auxCa,auxAu2,auxCa2) => {
     let transQs_C2 = Au_C2.k[0]+'->'+Au_C2.k[0]+`[label="${Au_C2.l[0]}/${Au_C2.s[0]}/${Au_C2.m[0]}"]`+';';
     let caminos_C2 = Au_C2.k[0]+'->'+Au_C2.k[1]+`[label="${Ca_C2.l[0]}/${Ca_C2.s[0]}/${Ca_C2.m[0]}"]`+';';
 
+    let tena = '';
+    let double = '';
+
     let final1 = Number.parseInt(Au_C1.k.length)-1;
     let final2 = Number.parseInt(Au_C2.k.length)-1;
 
@@ -518,7 +578,20 @@ const crearAuConca = (auxAu,auxCa,auxAu2,auxCa2) => {
         caminos_C2 += Au_C2.k[yy]+'->'+Au_C2.k[yy+1]+`[label="${Ca_C2.l[yy]}/${Ca_C2.s[yy]}/${Ca_C2.m[yy]}"]`+';';
     }
 
-    finC = 'https://quickchart.io/graphviz?graph=digraph{poi[shape=point];poi->qi[label="Inicio"];'+'qi->q0[label="λ/λ/P"];'+Au_C2.k[final2]+'[shape=doublecircle];'+transQs_C1+caminos_C1+transQs_C2+caminos_C2+`q${final1}->q${final1+1}[label="λ/P/λ"];q${final1+1}->${Au_C2.k[0]}[label="λ/λ/λ"]`+'}';
+    for(let tn=0;tn<Au_C1.k.length;tn++){
+        if(Au_C1.f[tn]==true){
+            tena+=Au_C1.k[tn]+'->'+`q${final1+1}[label="λ/P/λ"]`;
+        }
+    }
+
+
+    for(let zp=0;zp<Au_C2.k.length;zp++){
+        if(Au_C2.f[zp]==true){
+            double+=`${Au_C2.k[zp]} [shape=doublecircle];`;
+        }
+    }
+
+    finC = 'https://quickchart.io/graphviz?graph=digraph{poi[shape=point];poi->qi[label="Inicio"];'+'qi->q0[label="λ/λ/P"];'+double+transQs_C1+caminos_C1+transQs_C2+caminos_C2+tena+`q${final1+1}->${Au_C2.k[0]}[label="λ/λ/λ"]`+'}';
     console.log(finC);
     return finC;
 }
@@ -526,16 +599,77 @@ const crearAuConca = (auxAu,auxCa,auxAu2,auxCa2) => {
 //Eventos Formulario 1
 btn0.addEventListener('click', (evt) => {
     numAlfAu = document.getElementById("alfabeto-au").value;
+
+    if(numAlfAu==""){
+        alert("Debe agregar un valor entre 1 y 26 primero");
+        return 0;
+    }
+    if(numAlfAu<0){
+        alert("Debe agregar un valor entre 1 y 26");
+        document.getElementById("alfabeto-au").value="";
+        return 0;
+    }
+    if(numAlfAu>26){
+        alert("Debe agregar un valor entre 1 y 26"); 
+        document.getElementById("alfabeto-au").value="";
+        return 0;
+    }
+
     console.log('Cant. Alfabeto Au: '+numAlfAu);
+    btn0.disabled=true;
 })
 
 btn1.addEventListener('click', (evt) => {
+
+    numAlfAu = document.getElementById("alfabeto-au").value;
     numAlfPila = document.getElementById("alfabeto-pila").value;
+    if(numAlfAu==""){
+        alert("Primero debe agregar el tamaño del Alfabeto para el Automata.");
+        return 0;
+    }
+    if(numAlfPila==""){
+        alert("Debe agregar un valor entre 1 y 25 primero");
+        return 0;
+    }
+    if(numAlfPila<0){
+        alert("Debe agregar un valor entre 1 y 25");
+        document.getElementById("alfabeto-pila").value="";
+        return 0;
+    }
+    if(numAlfPila>25){
+        alert("Debe agregar un valor entre 1 y 25"); 
+        document.getElementById("alfabeto-pila").value="";
+        return 0;
+    }
+    btn1.disabled=true;
     console.log('Cant. Alfabeto Pila: '+numAlfPila);
 })
 
 btn2.addEventListener('click', (evt) => {
+    var xy= document.getElementById("alfabeto-pila").value;
+    numAlfAu = document.getElementById("alfabeto-au").value;
     numEstados = document.getElementById("num-estados").value;
+    if(numAlfAu==""){
+        alert("Primero debe agregar el alfabeto.");
+        return 0;
+    }
+    if(xy==""){
+        alert("Primero debe agregar el Alfabeto de la Pila");
+        return 0;
+    }
+    if(numEstados==""){
+        alert("Debe agregar un valor entre 1 y 10");
+        return 0;
+    }
+    if(numEstados<0){
+        alert("Debe agregar un valor entre 1 y 10");
+        return 0;
+    }
+    if(numEstados>10){
+        alert("Debe agregar un valor entre 1 y 10");
+        return 0;
+    }
+
     console.log('Cant. Estados: '+numEstados);
     numTransacciones = (numEstados*2)-1;
     console.log('Cant. Transacciones Totales: '+numTransacciones);
@@ -544,12 +678,32 @@ btn2.addEventListener('click', (evt) => {
     imprimirSelectLee();
     imprimirSelectPop();
     imprimirSelectPush();
+    document.getElementById("finales").innerHTML = "Indique los estados finales de su automata";
+    imprimirCheckFinal();
+    btn2.disabled=true;
 })
 
 btn3.addEventListener('click', (evt) => {
+var x= document.getElementById("alfabeto-au").value;
+var y= document.getElementById("alfabeto-pila").value;
+var z= document.getElementById("num-estados").value;
+if(x==""){
+    alert("Primero debe agregar un Alfabeto para el Automata");
+    return 0;
+}
+if(y==""){
+    alert("Primero debe agregar un Alfabeto para la Pila");
+    return 0;
+}
+if(z==""){
+    alert("Primero debe agregar una Cantidad de Conjuntos identificadores");
+    return 0; 
+}
+
     guardarSelectLee();
     guardarSelectPop();
     guardarSelectPush();
+    guardarCheckFinal();
 
     //Automata
     console.log('INFO AUTOMATA: ');
@@ -565,22 +719,84 @@ btn3.addEventListener('click', (evt) => {
     console.log(caminoPila1.s);
     console.log(caminoPila1.m);
 
-    imgAuPila.setAttribute('src',`${crearAuPila(automataPila1,caminoPila1)}`);
+    btn3.disabled= true;
 })
 
 //Eventos Formulario 2
 btn4.addEventListener('click', (evt) => {
     numAlfAu_Au2 = document.getElementById("alfabeto-au2").value;
+
+    if(numAlfAu_Au2==""){
+        alert("Debe agregar un valor entre 1 y 26 primero");
+        return 0;
+    }
+    if(numAlfAu_Au2<0){
+        alert("Debe agregar un valor entre 1 y 26");
+        document.getElementById("alfabeto-au2").value="";
+        return 0;
+    }
+    if(numAlfAu_Au2>26){
+        alert("Debe agregar un valor entre 1 y 26"); 
+        document.getElementById("alfabeto-au2").value="";
+        return 0;
+    }
+
     console.log('Cant. Alfabeto Au2: '+numAlfAu_Au2);
+    btn4.disabled=true;
 })
 
 btn5.addEventListener('click', (evt) => {
+
+    numAlfAu_Au2 = document.getElementById("alfabeto-au2").value;
     numAlfPila_Au2 = document.getElementById("alfabeto-pila-au2").value;
+    if(numAlfAu_Au2==""){
+        alert("Primero debe agregar el tamaño del Alfabeto para el Automata.");
+        return 0;
+    }
+    if(numAlfPila_Au2==""){
+        alert("Debe agregar un valor entre 1 y 25 primero");
+        return 0;
+    }
+    if(numAlfPila_Au2<0){
+        alert("Debe agregar un valor entre 1 y 25");
+        document.getElementById("alfabeto-pila-au2").value="";
+        return 0;
+    }
+    if(numAlfPila_Au2>25){
+        alert("Debe agregar un valor entre 1 y 25"); 
+        document.getElementById("alfabeto-pila-au2").value="";
+        return 0;
+    }
+    btn5.disabled=true;
     console.log('Cant. Alfabeto Pila Au2: '+numAlfPila_Au2);
 })
 
 btn6.addEventListener('click', (evt) => {
+    var yz=document.getElementById("alfabeto-pila-au2").value;
+    numAlfAu_Au2 = document.getElementById("alfabeto-au2").value;    
     numEstados_Au2 = document.getElementById("num-estados-au2").value;
+    if(numAlfAu_Au2==""){
+        alert("Primero debe agregar el Alfabeto del Automata");
+        return 0;
+    }
+    if(yz==""){
+        
+        alert("Primero debe agregar el Alfabeto de la Pila");
+        return 0;
+    }
+    if(numEstados_Au2==""){
+        alert("Debe agregar un valor entre 1 y 10");
+        return 0;
+    }
+    if(numEstados_Au2<0){
+        alert("Debe agregar un valor entre 1 y 10");
+        return 0;
+    }
+    if(numEstados_Au2>10){
+        alert("Debe agregar un valor entre 1 y 10");
+        return 0;
+    }
+
     console.log('Cant. Estados Au2: '+numEstados_Au2);
     numTransacciones_Au2 = (numEstados_Au2*2)-1;
     console.log('Cant. Transacciones Totales Au2: '+numTransacciones_Au2);
@@ -589,33 +805,68 @@ btn6.addEventListener('click', (evt) => {
     imprimirSelectLeeAu2();
     imprimirSelectPopAu2();
     imprimirSelectPushAu2();
+    document.getElementById("finales-au2").innerHTML = "Indique los estados finales de su automata";
+    imprimirCheckFinalAu2();
+    btn6.disabled=true;
 })
 
 btn7.addEventListener('click', (evt) => {
-    guardarSelectLeeAu2();
-    guardarSelectPopAu2();
-    guardarSelectPushAu2();
+var x= document.getElementById("alfabeto-au2").value;
+var y= document.getElementById("alfabeto-pila-au2").value;
+var z= document.getElementById("num-estados-au2").value;
+    if(x==""){
+        alert("Primero debe agregar un Alfabeto para el Automata");
+        return 0;
+    }
+    if(y==""){
+        alert("Primero debe agregar un Alfabeto para la Pila");
+        return 0;
+    }
+    if(z==""){
+        alert("Primero debe agregar una Cantidad de Conjuntos identificadores");
+        return 0; 
+    }
+    
+    
+        guardarSelectLeeAu2();
+        guardarSelectPopAu2();
+        guardarSelectPushAu2();
+        guardarCheckFinalAu2();
+    
+        //Automata
+        console.log('INFO AUTOMATA 2: ');
+        console.log(automataPila2.k);
+        console.log(automataPila2.l);
+        console.log(automataPila2.s);
+        console.log(automataPila2.m);
+    
+        //Camino}
+        console.log('INFO CAMINO Au 2: ');
+        console.log(caminoPila2.c);
+        console.log(caminoPila2.l);
+        console.log(caminoPila2.s);
+        console.log(caminoPila2.m);
+    
+        btn7.disabled= true;
 
-    //Automata
-    console.log('INFO AUTOMATA 2: ');
-    console.log(automataPila2.k);
-    console.log(automataPila2.l);
-    console.log(automataPila2.s);
-    console.log(automataPila2.m);
+})
 
-    //Camino}
-    console.log('INFO CAMINO Au 2: ');
-    console.log(caminoPila2.c);
-    console.log(caminoPila2.l);
-    console.log(caminoPila2.s);
-    console.log(caminoPila2.m);
-
+btn8.addEventListener('click', (evt) => {
+    if(automataPila1.k.length && caminoPila1.c.length > 0  ){
+        
+    imgAuPila.setAttribute('src',`${crearAuPila(automataPila1,caminoPila1)}`);
     imgAuPilaAu2.setAttribute('src',`${crearAuPila(automataPila2,caminoPila2)}`);
 
-    union(automataPila1,caminoPila1,automataPila2,caminoPila2);
-    imgUnion.setAttribute('src',`${CrearAuUnion(automataPila1,caminoPila1,automataUnion,caminoUnion)}`);
-
-    concatenacion(automataPila1,caminoPila1,automataPila2,caminoPila2);
-    imgConca.setAttribute('src',`${crearAuConca(automataPila1,caminoPila1,automataConca,caminoConca)}`);
+    
+        union(automataPila1,caminoPila1,automataPila2,caminoPila2);
+        imgUnion.setAttribute('src',`${CrearAuUnion(automataPila1,caminoPila1,automataUnion,caminoUnion)}`);
+    
+        concatenacion(automataPila1,caminoPila1,automataPila2,caminoPila2);
+        imgConca.setAttribute('src',`${crearAuConca(automataPila1,caminoPila1,automataConca,caminoConca)}`);
+    }
+    else{
+        alert("Primero debe agregar los 2 Automatas de Pila");
+        return 0;
+    }
 })
 
