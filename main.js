@@ -337,7 +337,7 @@ const agregarOptPopAu2 = () => {
 }
 
 
-const guardarSelectPopAu2 = () => {;
+const guardarSelectPopAu2 = () => {
     automataPila2.s = [];
     caminoPila2.s = [];
 
@@ -483,8 +483,8 @@ const union = (auxAu,auxCa,auxAu2,auxCa2) => {
     const auUnion = new automata;
     const caUnion = new camino;
 
-    au2 = JSON.parse(JSON.stringify(auxAu2));
-    ca2 = JSON.parse(JSON.stringify(auxCa2));
+    let au2 = JSON.parse(JSON.stringify(auxAu2));
+    let ca2 = JSON.parse(JSON.stringify(auxCa2));
 
     let largoAu = Number.parseInt(auxAu.k.length);
     let largoCa = Number.parseInt(auxCa.c.length);
@@ -576,8 +576,8 @@ const concatenacion = (auxAu,auxCa,auxAu2,auxCa2) => {
     const auConca = new automata;
     const caConca = new camino;
 
-    au2 = JSON.parse(JSON.stringify(auxAu2));
-    ca2 = JSON.parse(JSON.stringify(auxCa2));
+    let au2 = JSON.parse(JSON.stringify(auxAu2));
+    let ca2 = JSON.parse(JSON.stringify(auxCa2));
 
     let largoAu = Number.parseInt(auxAu.k.length);
     let largoCa = Number.parseInt(auxCa.c.length);
@@ -634,7 +634,6 @@ const crearAuConca = (auxAu,auxCa,auxAu2,auxCa2) => {
     let double = '';
   
     let final1 = Number.parseInt(Au_C1.k.length)-1;
-    let final2 = Number.parseInt(Au_C2.k.length)-1;
 
     let finC;
 
@@ -678,7 +677,7 @@ btn0.addEventListener('click', (evt) => {
         alert("Debe agregar un valor entre 1 y 26 primero");
         return 0;
     }
-    if(numAlfAu<0){
+    if(numAlfAu<1){
         alert("Debe agregar un valor entre 1 y 26");
         document.getElementById("alfabeto-au").value="";
         return 0;
@@ -705,7 +704,7 @@ btn1.addEventListener('click', (evt) => {
         alert("Debe agregar un valor entre 1 y 25 primero");
         return 0;
     }
-    if(numAlfPila<0){
+    if(numAlfPila<1){
         alert("Debe agregar un valor entre 1 y 25");
         document.getElementById("alfabeto-pila").value="";
         return 0;
@@ -812,7 +811,7 @@ btn4.addEventListener('click', (evt) => {
         alert("Debe agregar un valor entre 1 y 26 primero");
         return 0;
     }
-    if(numAlfAu_Au2<0){
+    if(numAlfAu_Au2<1){
         alert("Debe agregar un valor entre 1 y 26");
         document.getElementById("alfabeto-au2").value="";
         return 0;
@@ -839,7 +838,7 @@ btn5.addEventListener('click', (evt) => {
         alert("Debe agregar un valor entre 1 y 25 primero");
         return 0;
     }
-    if(numAlfPila_Au2<0){
+    if(numAlfPila_Au2<1){
         alert("Debe agregar un valor entre 1 y 25");
         document.getElementById("alfabeto-pila-au2").value="";
         return 0;
