@@ -27,6 +27,7 @@ const selInputsPop = document.querySelector(".selectPop");
 const optInputsPop = document.querySelector(".optPop");
 const checkFinal = document.querySelector(".checkFinal");
 
+
 //Formulario Automata 1
 const indicadorAu2 = document.querySelector(".indicador-au2");
 const selInputsLeeAu2 = document.querySelector(".selectLee-au2");
@@ -36,6 +37,7 @@ const optInputsPushAu2 = document.querySelector(".optPush-au2");
 const selInputsPopAu2 = document.querySelector(".selectPop-au2");
 const optInputsPopAu2 = document.querySelector(".optPop-au2");
 const checkFinalAu2 = document.querySelector(".checkFinal-au2");
+
 
 //Variables Globales
 let numAlfAu;
@@ -177,7 +179,7 @@ const agregarOptPop = () => {
 const guardarSelectPop = () => {
     automataPila1.s = [];
     caminoPila1.s = [];
-    
+
     for(let b=0;b<numTransacciones;b++){
         let infoPop = document.getElementById(`sel-Pop${b}`).value;
         if(b%2==0){
@@ -227,6 +229,7 @@ const guardarSelectPush = () => {
         }
     }
 }
+
 
 const imprimirCheckFinal = () => {
     for(let po=0; po<numEstados; po++){
@@ -332,6 +335,7 @@ const agregarOptPopAu2 = () => {
         }
     }
 }
+
 
 const guardarSelectPopAu2 = () => {;
     automataPila2.s = [];
@@ -628,7 +632,7 @@ const crearAuConca = (auxAu,auxCa,auxAu2,auxCa2) => {
 
     let tena = '';
     let double = '';
-
+  
     let final1 = Number.parseInt(Au_C1.k.length)-1;
     let final2 = Number.parseInt(Au_C2.k.length)-1;
 
@@ -748,6 +752,7 @@ btn2.addEventListener('click', (evt) => {
     imprimirSelectLee();
     imprimirSelectPop();
     imprimirSelectPush();
+  
     document.getElementById("finales").innerHTML = "Indique los estados finales de su automata";
     imprimirCheckFinal();
     btn2.disabled=true;
@@ -774,7 +779,6 @@ if(z==""){
     guardarSelectPop();
     guardarSelectPush();
     guardarCheckFinal();
-    
     
 if(checkConfirm == false){
     let con=confirm("Su automata 1 NO tiene un estado final. (Esto significara que en la funcion Concatenacion no se anidaran sus automatas). ¿Desea continuar de todos modos? ");
@@ -883,8 +887,10 @@ btn6.addEventListener('click', (evt) => {
     imprimirSelectLeeAu2();
     imprimirSelectPopAu2();
     imprimirSelectPushAu2();
+
     document.getElementById("finales-au2").innerHTML = "Indique los estados finales de su automata";
     imprimirCheckFinalAu2();
+
     btn6.disabled=true;
 })
 
@@ -917,6 +923,7 @@ var z= document.getElementById("num-estados-au2").value;
             return 0;
         }
     }
+
     
         //Automata
         console.log('INFO AUTOMATA 2: ');
