@@ -10,6 +10,7 @@ const btn5 = document.querySelector(".btn5");
 const btn6 = document.querySelector(".btn6");
 const btn7 = document.querySelector(".btn7");
 const btn8 = document.querySelector(".btn8");
+
 //Imagenes Automata
 const imgAuPila = document.querySelector(".Au-Pila");
 const imgAuPilaAu2 = document.querySelector(".Au-Pila-au2");
@@ -24,6 +25,8 @@ const selInputsPush = document.querySelector(".selectPush");
 const optInputsPush = document.querySelector(".optPush");
 const selInputsPop = document.querySelector(".selectPop");
 const optInputsPop = document.querySelector(".optPop");
+const checkFinal = document.querySelector(".checkFinal");
+
 
 //Formulario Automata 1
 const indicadorAu2 = document.querySelector(".indicador-au2");
@@ -32,7 +35,9 @@ const optInputsLeeAu2 = document.querySelector(".optLee-au2");
 const selInputsPushAu2 = document.querySelector(".selectPush-au2");
 const optInputsPushAu2 = document.querySelector(".optPush-au2");
 const selInputsPopAu2 = document.querySelector(".selectPop-au2");
-const optInputsPopAu2 = document.querySelector(".optPop");
+const optInputsPopAu2 = document.querySelector(".optPop-au2");
+const checkFinalAu2 = document.querySelector(".checkFinal-au2");
+
 
 //Variables Globales
 let numAlfAu;
@@ -44,6 +49,9 @@ let numAlfAu_Au2;
 let numAlfPila_Au2;
 let numEstados_Au2;
 
+let checkConfirm;
+let checkConfirmAu2;
+
 let matrizUnion = [];
 
 let numTransacciones_Au2;
@@ -52,11 +60,12 @@ let abcPila = ["λ","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O",
 
 //Clase Automata
 class automata{
-    constructor(k,l,s,m){
+    constructor(k,l,s,m,f){
         this.k = [];
         this.l = [];
         this.s = [];
         this.m = [];
+        this.f = [];
     }
 }
 
@@ -125,6 +134,11 @@ const agregarOptLee = () => {
 }
 
 const guardarSelectLee = () => {
+    automataPila1.l = [];
+    automataPila1.k = [];
+    caminoPila1.l = [];
+    caminoPila1.c = [];
+
     for(let a=0;a<numTransacciones;a++){
         let infoLee = document.getElementById(`sel-Lee${a}`).value;
         if(a%2==0){
@@ -163,6 +177,9 @@ const agregarOptPop = () => {
 }
 
 const guardarSelectPop = () => {
+    automataPila1.s = [];
+    caminoPila1.s = [];
+
     for(let b=0;b<numTransacciones;b++){
         let infoPop = document.getElementById(`sel-Pop${b}`).value;
         if(b%2==0){
@@ -199,6 +216,9 @@ const agregarOptPush = () => {
 }
 
 const guardarSelectPush = () => {
+    automataPila1.m = [];
+    caminoPila1.m = [];
+
     for(let c=0;c<numTransacciones;c++){
         let infoPush = document.getElementById(`sel-Push${c}`).value;
         if(c%2==0){
@@ -208,6 +228,28 @@ const guardarSelectPush = () => {
             caminoPila1.m.push(infoPush);
         }
     }
+}
+
+
+const imprimirCheckFinal = () => {
+    for(let po=0; po<numEstados; po++){
+        const checkNewFin = document.createElement('input');
+        checkFinal.append(checkNewFin);
+        checkNewFin.setAttribute('type','checkbox');
+        checkNewFin.setAttribute('id',`check-Fin${po}`);
+        checkFinal.append(`q${po} `);
+    }
+    document.getElementById(`check-Fin${numEstados-1}`).setAttribute('checked','true');
+}
+
+const guardarCheckFinal = () => {
+    automataPila1.f = [];
+
+    for(let yu=0; yu<numEstados; yu++){
+        let check = document.getElementById(`check-Fin${yu}`).checked;
+        automataPila1.f.push(check);
+    }
+    seguridadCheck(automataPila1.f);
 }
 
 //Funciones Formulario Automata Pila 2
@@ -252,6 +294,11 @@ const agregarOptLeeAu2 = () => {
 }
 
 const guardarSelectLeeAu2 = () => {
+    automataPila2.l = [];
+    automataPila2.k = [];
+    caminoPila2.l = [];
+    caminoPila2.c = [];
+
     for(let a=0;a<numTransacciones_Au2;a++){
         let infoLeeAu2 = document.getElementById(`sel-Lee-au2-${a}`).value;
         if(a%2==0){
@@ -289,7 +336,11 @@ const agregarOptPopAu2 = () => {
     }
 }
 
-const guardarSelectPopAu2 = () => {
+
+const guardarSelectPopAu2 = () => {;
+    automataPila2.s = [];
+    caminoPila2.s = [];
+
     for(let b=0;b<numTransacciones_Au2;b++){
         let infoPopAu2 = document.getElementById(`sel-Pop-au2-${b}`).value;
         if(b%2==0){
@@ -326,6 +377,9 @@ const agregarOptPushAu2 = () => {
 }
 
 const guardarSelectPushAu2 = () => {
+    automataPila2.m = [];
+    caminoPila2.m = [];
+
     for(let c=0;c<numTransacciones_Au2;c++){
         let infoPushAu2 = document.getElementById(`sel-Push-au2-${c}`).value;
         if(c%2==0){
@@ -337,6 +391,64 @@ const guardarSelectPushAu2 = () => {
     }
 }
 
+const imprimirCheckFinalAu2 = () => {
+    for(let pi=0; pi<numEstados_Au2; pi++){
+        const checkNewFinAu2 = document.createElement('input');
+        checkFinalAu2.append(checkNewFinAu2);
+        checkNewFinAu2.setAttribute('type','checkbox');
+        checkNewFinAu2.setAttribute('id',`check-Fin-au2${pi}`);
+        checkFinalAu2.append(`q${pi} `);
+    }
+    document.getElementById(`check-Fin-au2${numEstados_Au2-1}`).setAttribute('checked',true);
+}
+
+const guardarCheckFinalAu2 = () => {
+    automataPila2.f = [];
+
+    for(let yo=0; yo<numEstados_Au2; yo++){
+        let checki = document.getElementById(`check-Fin-au2${yo}`).checked;
+        automataPila2.f.push(checki)
+    }
+    seguridadCheckAu2(automataPila2.f);
+}
+
+//Funcion Seguridad Check Final Au 1
+const seguridadCheck = (auxi) => {
+    let aux = JSON.parse(JSON.stringify(auxi));
+    console.log(aux);
+    let cont=0; 
+
+    for(let h=0;h<aux.length;h++){
+        if(aux[h]==false){
+            cont++;
+        }
+    }
+    if(cont==numEstados){
+        checkConfirm = false;
+    }
+    else{
+        checkConfirm = true;
+    }
+    console.log(checkConfirm);
+}
+
+//Funcion Seguridad Check Final Au 2
+const seguridadCheckAu2 = (aux) => {
+    let cont=0; 
+
+    for(let h=0;h<aux.length;h++){
+        if(aux[h]==false){
+            cont++;
+        }
+    }
+    if(cont==numEstados_Au2){
+        checkConfirmAu2 = false;
+    }
+    else{
+        checkConfirmAu2 = true;
+    }
+}
+
 //Funcion Imagen de su automata Pila
 const crearAuPila = (auxAu,auxCa) => {
     let Au =  JSON.parse(JSON.stringify(auxAu));
@@ -344,7 +456,7 @@ const crearAuPila = (auxAu,auxCa) => {
 
     let transQs = Au.k[0]+'->'+Au.k[0]+`[label="${Au.l[0]}/${Au.s[0]}/${Au.m[0]}"]`+';';
     let caminos = Au.k[0]+'->'+Au.k[1]+`[label="${Ca.l[0]}/${Ca.s[0]}/${Ca.m[0]}"]`+';';
-    let final = Number.parseInt(Au.k.length)-1;
+    let double = '';
     let fin;
 
     for(let z=1;z<Au.k.length;z++){
@@ -355,7 +467,13 @@ const crearAuPila = (auxAu,auxCa) => {
         caminos += Au.k[zz]+'->'+Au.k[zz+1]+`[label="${Ca.l[zz]}/${Ca.s[zz]}/${Ca.m[zz]}"]`+';';
     }
 
-    fin = 'https://quickchart.io/graphviz?graph=digraph{poi[shape=point];poi->q0[label="Inicio"];'+Au.k[final]+'[shape=doublecircle];'+transQs+caminos+'}';
+    for(let zx=0;zx<Au.k.length;zx++){
+        if(Au.f[zx]==true){
+            double+=`${Au.k[zx]} [shape=doublecircle];`
+        }
+    }
+
+    fin = 'https://quickchart.io/graphviz?graph=digraph{poi[shape=point];poi->q0[label="Inicio"];'+double+transQs+caminos+'}';
     console.log(fin);
     return fin;
 }
@@ -375,6 +493,7 @@ const union = (auxAu,auxCa,auxAu2,auxCa2) => {
         auUnion.l.push(au2.l[h]);
         auUnion.s.push(au2.s[h]);
         auUnion.m.push(au2.m[h]);
+        auUnion.f.push(au2.f[h]);
 
         let aux = au2.k[h].split('');
         aux.shift();
@@ -417,8 +536,7 @@ const CrearAuUnion = (auxAu,auxCa,auxAu2,auxCa2) => {
     let transQs_U2 = Au_U2.k[0]+'->'+Au_U2.k[0]+`[label="${Au_U2.l[0]}/${Au_U2.s[0]}/${Au_U2.m[0]}"]`+';';
     let caminos_U2 = Au_U2.k[0]+'->'+Au_U2.k[1]+`[label="${Ca_U2.l[0]}/${Ca_U2.s[0]}/${Ca_U2.m[0]}"]`+';';
 
-    let final1 = Number.parseInt(Au_U1.k.length)-1;
-    let final2 = Number.parseInt(Au_U2.k.length)-1;
+    let double = '';
 
     let finU;
 
@@ -436,7 +554,19 @@ const CrearAuUnion = (auxAu,auxCa,auxAu2,auxCa2) => {
         caminos_U2 += Au_U2.k[yy]+'->'+Au_U2.k[yy+1]+`[label="${Ca_U2.l[yy]}/${Ca_U2.s[yy]}/${Ca_U2.m[yy]}"]`+';';
     }
 
-    finU = 'https://quickchart.io/graphviz?graph=digraph{poi[shape=point];poi->qi[label="Inicio"];'+'qi->q0[label="λ/λ/λ"];qi->'+Au_U2.k[0]+'[label="λ/λ/λ"];'+Au_U1.k[final1]+'[shape=doublecircle];'+Au_U2.k[final2]+'[shape=doublecircle];'+transQs_U1+caminos_U1+transQs_U2+caminos_U2+'}';
+    for(let zi=0;zi<Au_U1.k.length;zi++){
+        if(Au_U1.f[zi]==true){
+            double+=`${Au_U1.k[zi]} [shape=doublecircle];`;
+        }
+    }
+    for(let zp=0;zp<Au_U2.k.length;zp++){
+        if(Au_U2.f[zp]==true){
+            double+=`${Au_U2.k[zp]} [shape=doublecircle];`;
+        }
+    }
+
+
+    finU = 'https://quickchart.io/graphviz?graph=digraph{poi[shape=point];poi->qi[label="Inicio"];'+'qi->q0[label="λ/λ/λ"];qi->'+Au_U2.k[0]+'[label="λ/λ/λ"];'+double+transQs_U1+caminos_U1+transQs_U2+caminos_U2+'}';
     console.log(finU);
     return finU;
 }
@@ -456,6 +586,7 @@ const concatenacion = (auxAu,auxCa,auxAu2,auxCa2) => {
         auConca.l.push(au2.l[h]);
         auConca.s.push(au2.s[h]);
         auConca.m.push(au2.m[h]);
+        auConca.f.push(au2.f[h]);
 
         let aux = au2.k[h].split('');
         aux.shift();
@@ -499,6 +630,9 @@ const crearAuConca = (auxAu,auxCa,auxAu2,auxCa2) => {
     let transQs_C2 = Au_C2.k[0]+'->'+Au_C2.k[0]+`[label="${Au_C2.l[0]}/${Au_C2.s[0]}/${Au_C2.m[0]}"]`+';';
     let caminos_C2 = Au_C2.k[0]+'->'+Au_C2.k[1]+`[label="${Ca_C2.l[0]}/${Ca_C2.s[0]}/${Ca_C2.m[0]}"]`+';';
 
+    let tena = '';
+    let double = '';
+  
     let final1 = Number.parseInt(Au_C1.k.length)-1;
     let final2 = Number.parseInt(Au_C2.k.length)-1;
 
@@ -518,7 +652,20 @@ const crearAuConca = (auxAu,auxCa,auxAu2,auxCa2) => {
         caminos_C2 += Au_C2.k[yy]+'->'+Au_C2.k[yy+1]+`[label="${Ca_C2.l[yy]}/${Ca_C2.s[yy]}/${Ca_C2.m[yy]}"]`+';';
     }
 
-    finC = 'https://quickchart.io/graphviz?graph=digraph{poi[shape=point];poi->qi[label="Inicio"];'+'qi->q0[label="λ/λ/P"];'+Au_C2.k[final2]+'[shape=doublecircle];'+transQs_C1+caminos_C1+transQs_C2+caminos_C2+`q${final1}->q${final1+1}[label="λ/P/λ"];q${final1+1}->${Au_C2.k[0]}[label="λ/λ/λ"]`+'}';
+    for(let tn=0;tn<Au_C1.k.length;tn++){
+        if(Au_C1.f[tn]==true){
+            tena+=Au_C1.k[tn]+'->'+`q${final1+1}[label="λ/P/λ"]`;
+        }
+    }
+
+
+    for(let zp=0;zp<Au_C2.k.length;zp++){
+        if(Au_C2.f[zp]==true){
+            double+=`${Au_C2.k[zp]} [shape=doublecircle];`;
+        }
+    }
+
+    finC = 'https://quickchart.io/graphviz?graph=digraph{poi[shape=point];poi->qi[label="Inicio"];'+'qi->q0[label="λ/λ/P"];'+double+transQs_C1+caminos_C1+transQs_C2+caminos_C2+tena+`q${final1+1}->${Au_C2.k[0]}[label="λ/λ/λ"]`+'}';
     console.log(finC);
     return finC;
 }
@@ -588,8 +735,8 @@ btn2.addEventListener('click', (evt) => {
         alert("Debe agregar un valor entre 1 y 10");
         return 0;
     }
-    if(numEstados<0){
-        alert("Debe agregar un valor entre 1 y 10");
+    if(numEstados<2){
+        alert("Debe agregar un valor entre 2 y 10");
         return 0;
     }
     if(numEstados>10){
@@ -605,6 +752,9 @@ btn2.addEventListener('click', (evt) => {
     imprimirSelectLee();
     imprimirSelectPop();
     imprimirSelectPush();
+  
+    document.getElementById("finales").innerHTML = "Indique los estados finales de su automata";
+    imprimirCheckFinal();
     btn2.disabled=true;
 })
 
@@ -628,6 +778,14 @@ if(z==""){
     guardarSelectLee();
     guardarSelectPop();
     guardarSelectPush();
+    guardarCheckFinal();
+    
+if(checkConfirm == false){
+    let con=confirm("Su automata 1 NO tiene un estado final. (Esto significara que en la funcion Concatenacion no se anidaran sus automatas). ¿Desea continuar de todos modos? ");
+    if(con==false){
+        return 0;
+    }
+}
 
     //Automata
     console.log('INFO AUTOMATA: ');
@@ -712,8 +870,8 @@ btn6.addEventListener('click', (evt) => {
         alert("Debe agregar un valor entre 1 y 10");
         return 0;
     }
-    if(numEstados_Au2<0){
-        alert("Debe agregar un valor entre 1 y 10");
+    if(numEstados_Au2<2){
+        alert("Debe agregar un valor entre 2 y 10");
         return 0;
     }
     if(numEstados_Au2>10){
@@ -729,6 +887,10 @@ btn6.addEventListener('click', (evt) => {
     imprimirSelectLeeAu2();
     imprimirSelectPopAu2();
     imprimirSelectPushAu2();
+
+    document.getElementById("finales-au2").innerHTML = "Indique los estados finales de su automata";
+    imprimirCheckFinalAu2();
+
     btn6.disabled=true;
 })
 
@@ -753,6 +915,15 @@ var z= document.getElementById("num-estados-au2").value;
         guardarSelectLeeAu2();
         guardarSelectPopAu2();
         guardarSelectPushAu2();
+        guardarCheckFinalAu2();
+
+    if(checkConfirmAu2 == false){
+        let con =confirm("Su automata 2 NO tiene un estado final. ¿Desea continuar de todos modos? ");
+        if(con==false){
+            return 0;
+        }
+    }
+
     
         //Automata
         console.log('INFO AUTOMATA 2: ');
